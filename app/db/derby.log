@@ -1,7 +1,7 @@
-Tue Jun 19 13:39:29 CEST 2018 : Servidor de red Apache Derby: Se ha iniciado 10.10.2.0 - (1582446) y está listo para aceptar las conexiones en el puerto 1527
+Wed Jun 20 00:16:28 CEST 2018 : Servidor de red Apache Derby: Se ha iniciado 10.10.2.0 - (1582446) y está listo para aceptar las conexiones en el puerto 1527
 ----------------------------------------------------------------
-Tue Jun 19 13:39:30 CEST 2018:
- Iniciando instancia a816c00e-0164-17d7-b46c-000060319dfb de Derby, versión The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): 
+Wed Jun 20 00:16:29 CEST 2018:
+ Iniciando instancia a816c00e-0164-1a1e-e1ed-000060319dfb de Derby, versión The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): 
 en el directorio de base de datos /home/ismael/Documentos/GitRepos/PracticaDesing/app/db/invernadero con el cargador de clases sun.misc.Launcher$AppClassLoader@5e2de80c
 Cargado desde file:/home/ismael/GlassFish_Server/javadb/lib/derby.jar
 java.vendor=Oracle Corporation
@@ -13,38 +13,8 @@ os.version=4.14.44-1-MANJARO
 derby.system.home=/home/ismael/Documentos/GitRepos/PracticaDesing/app/db
 Cargador de clases de base de datos iniciado - derby.database.classpath=''
 ----------------------------------------------------------------
-Tue Jun 19 14:08:06 CEST 2018:
-Cerrando la instancia a816c00e-0164-17d7-b46c-000060319dfb en el directorio de base de datos /home/ismael/Documentos/GitRepos/PracticaDesing/app/db/invernadero con cargador de clases sun.misc.Launcher$AppClassLoader@5e2de80c
-Tue Jun 19 14:08:06 CEST 2018 Thread[DRDAConnThread_3,5,main] (DATABASE = invernadero), (DRDAID = {5}), Cierre de la base de datos 'invernadero'.
+Wed Jun 20 00:31:49 CEST 2018: cerrando motor de Derby
 ----------------------------------------------------------------
-Tue Jun 19 14:08:22 CEST 2018:
- Iniciando instancia 577082f5-0164-17d7-b46c-000060319dfb de Derby, versión The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): 
-en el directorio de base de datos /home/ismael/Documentos/GitRepos/PracticaDesing/app/db/invernadero con el cargador de clases sun.misc.Launcher$AppClassLoader@5e2de80c
-Cargado desde file:/home/ismael/GlassFish_Server/javadb/lib/derby.jar
-java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_172-b11
-user.dir=/home/ismael/GlassFish_Server/javadb
-os.name=Linux
-os.arch=amd64
-os.version=4.14.44-1-MANJARO
-derby.system.home=/home/ismael/Documentos/GitRepos/PracticaDesing/app/db
-Cargador de clases de base de datos iniciado - derby.database.classpath=''
+Wed Jun 20 00:31:49 CEST 2018:
+Cerrando la instancia a816c00e-0164-1a1e-e1ed-000060319dfb en el directorio de base de datos /home/ismael/Documentos/GitRepos/PracticaDesing/app/db/invernadero con cargador de clases sun.misc.Launcher$AppClassLoader@5e2de80c
 ----------------------------------------------------------------
-Tue Jun 19 14:08:24 CEST 2018:
-Cerrando la instancia 577082f5-0164-17d7-b46c-000060319dfb en el directorio de base de datos /home/ismael/Documentos/GitRepos/PracticaDesing/app/db/invernadero con cargador de clases sun.misc.Launcher$AppClassLoader@5e2de80c
-Tue Jun 19 14:08:24 CEST 2018 Thread[DRDAConnThread_3,5,main] (DATABASE = invernadero), (DRDAID = {7}), Cierre de la base de datos 'invernadero'.
-----------------------------------------------------------------
-Tue Jun 19 14:08:32 CEST 2018:
- Iniciando instancia 16920391-0164-17d7-b46c-000060319dfb de Derby, versión The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): 
-en el directorio de base de datos /home/ismael/Documentos/GitRepos/PracticaDesing/app/db/invernadero con el cargador de clases sun.misc.Launcher$AppClassLoader@5e2de80c
-Cargado desde file:/home/ismael/GlassFish_Server/javadb/lib/derby.jar
-java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_172-b11
-user.dir=/home/ismael/GlassFish_Server/javadb
-os.name=Linux
-os.arch=amd64
-os.version=4.14.44-1-MANJARO
-derby.system.home=/home/ismael/Documentos/GitRepos/PracticaDesing/app/db
-Cargador de clases de base de datos iniciado - derby.database.classpath=''
-----------------------------------------------------------------
-Tue Jun 19 20:47:42 CEST 2018: cerrando motor de Derby
