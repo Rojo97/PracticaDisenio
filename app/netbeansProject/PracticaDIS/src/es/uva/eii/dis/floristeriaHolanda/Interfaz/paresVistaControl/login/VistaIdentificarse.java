@@ -9,18 +9,18 @@ package es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.login;
  *
  * @author super
  */
-public class VistaLogin extends javax.swing.JFrame {
+public class VistaIdentificarse extends javax.swing.JFrame {
 
-    private final ControladorVistaLogin controlador;
+    private final ControladorVistaIdentificarse controlador;
     
     /**
      * Creates new form VistaLogin
      */
-    public VistaLogin() {
+    public VistaIdentificarse() {
         initComponents();
         labelLoginIncorrecto.setVisible(false);
         jTextArea2.setVisible(false);
-        controlador = new ControladorVistaLogin(this);
+        controlador = new ControladorVistaIdentificarse(this);
     }
 
     /**
@@ -92,7 +92,6 @@ public class VistaLogin extends javax.swing.JFrame {
             }
         });
 
-        labelLoginIncorrecto.setText(" *Usuario y contraseña no coinciden");
         labelLoginIncorrecto.setFocusable(false);
 
         panelInformacion.setPreferredSize(new java.awt.Dimension(264, 48));
@@ -143,27 +142,25 @@ public class VistaLogin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelLoginIncorrecto)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(panelInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                            .addComponent(labelPassword)
+                            .addComponent(labelDNI))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textDNI)
+                            .addComponent(textPassword))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(verContraseña))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelLoginIncorrecto, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(174, 174, 174)
-                                .addComponent(botonAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 160, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelPassword)
-                                    .addComponent(labelDNI))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textDNI)
-                                    .addComponent(textPassword))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(verContraseña)))
-                        .addContainerGap())))
+                                .addComponent(botonAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 128, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,7 +272,13 @@ public class VistaLogin extends javax.swing.JFrame {
         }
     }
     
-    protected void mostrarError() {
+    protected void mostrarErrorLogin() {
+        labelLoginIncorrecto.setText("El usuario y la contraseña no coinciden");
+        labelLoginIncorrecto.setVisible(true);
+    }
+    
+    protected void mostrarErrorActivo() {
+        labelLoginIncorrecto.setText("El usuario introducido no está activo");
         labelLoginIncorrecto.setVisible(true);
     }
     

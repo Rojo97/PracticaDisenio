@@ -5,7 +5,7 @@
  */
 package es.uva.eii.dis.floristeriaHolanda.Interfaz;
 
-import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.login.VistaLogin;
+import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.login.VistaIdentificarse;
 import javax.swing.JFrame;
 
 /**
@@ -32,7 +32,7 @@ public class GestorDeInterfazDeUsuario {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                currentState = new VistaLogin();
+                currentState = new VistaIdentificarse();
                 currentState.setVisible(true);
             }
         });

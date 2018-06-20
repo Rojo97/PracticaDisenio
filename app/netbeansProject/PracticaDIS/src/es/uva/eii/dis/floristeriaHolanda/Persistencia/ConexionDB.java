@@ -12,8 +12,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 public class ConexionDB {
@@ -90,14 +90,14 @@ public class ConexionDB {
                     String column_name = rsmd.getColumnName(i);
                     obj.put(column_name, r.getObject(column_name));
                 }
-                json.add(obj);
+                json.put(obj);
             }
         }catch(Exception e){
             System.err.println(e.getStackTrace());
         }
         
-        if(json.size()>0){
-            return json.toJSONString();
+        if(json.length()>0){
+            return json.toString();
         }
        
         return null;

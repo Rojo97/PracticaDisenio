@@ -55,38 +55,35 @@
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="botonIdentificarse" min="-2" max="-2" attributes="0"/>
               </Group>
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="labelLoginIncorrecto" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="panelInformacion" pref="435" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="panelInformacion" pref="435" max="32767" attributes="0"/>
+                              <Component id="labelPassword" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelDNI" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="textDNI" max="32767" attributes="0"/>
+                              <Component id="textPassword" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="verContraseña" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="labelLoginIncorrecto" min="-2" pref="307" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
                                   <Component id="botonAyuda" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="160" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="labelPassword" min="-2" max="-2" attributes="0"/>
-                                      <Component id="labelDNI" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="textDNI" max="32767" attributes="0"/>
-                                      <Component id="textPassword" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="verContraseña" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="128" max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -160,7 +157,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelLoginIncorrecto">
           <Properties>
-            <Property name="text" type="java.lang.String" value=" *Usuario y contrase&#xf1;a no coinciden"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
         </Component>

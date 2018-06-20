@@ -1,7 +1,7 @@
-Wed Jun 20 00:16:28 CEST 2018 : Servidor de red Apache Derby: Se ha iniciado 10.10.2.0 - (1582446) y está listo para aceptar las conexiones en el puerto 1527
+Wed Jun 20 00:59:51 CEST 2018 : Servidor de red Apache Derby: Se ha iniciado 10.10.2.0 - (1582446) y está listo para aceptar las conexiones en el puerto 1527
 ----------------------------------------------------------------
-Wed Jun 20 00:16:29 CEST 2018:
- Iniciando instancia a816c00e-0164-1a1e-e1ed-000060319dfb de Derby, versión The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): 
+Wed Jun 20 00:59:51 CEST 2018:
+ Iniciando instancia a816c00e-0164-1a46-9616-000060319dfb de Derby, versión The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): 
 en el directorio de base de datos /home/ismael/Documentos/GitRepos/PracticaDesing/app/db/invernadero con el cargador de clases sun.misc.Launcher$AppClassLoader@5e2de80c
 Cargado desde file:/home/ismael/GlassFish_Server/javadb/lib/derby.jar
 java.vendor=Oracle Corporation
@@ -12,9 +12,3 @@ os.arch=amd64
 os.version=4.14.44-1-MANJARO
 derby.system.home=/home/ismael/Documentos/GitRepos/PracticaDesing/app/db
 Cargador de clases de base de datos iniciado - derby.database.classpath=''
-----------------------------------------------------------------
-Wed Jun 20 00:31:49 CEST 2018: cerrando motor de Derby
-----------------------------------------------------------------
-Wed Jun 20 00:31:49 CEST 2018:
-Cerrando la instancia a816c00e-0164-1a1e-e1ed-000060319dfb en el directorio de base de datos /home/ismael/Documentos/GitRepos/PracticaDesing/app/db/invernadero con cargador de clases sun.misc.Launcher$AppClassLoader@5e2de80c
-----------------------------------------------------------------

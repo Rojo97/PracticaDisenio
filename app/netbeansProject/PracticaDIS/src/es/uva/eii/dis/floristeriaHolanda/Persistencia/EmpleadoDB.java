@@ -5,7 +5,8 @@
  */
 package es.uva.eii.dis.floristeriaHolanda.Persistencia;
 
-import com.google.gson.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -15,6 +16,8 @@ public class EmpleadoDB {
     
     public static String getEmpleadoPorDNIyPass(String d, String p){
         
+        String e = null;
+        
         String SQL_Query_Empleado = "SELECT * FROM Empleado E WHERE E.Nif = '" + d + "' and E.Password = '" + p + "'";    
         String SQL_Query_Roles = "SELECT * FROM RolesEnEmpresa R WHERE R.Empleado = '" + d + "' ORDER BY R.ComienzoEnRol";
         String SQL_Query_Vinculaciones = "SELECT * FROM VinculacionConLaEmpresa V WHERE V.Empleado = '" + d + "' ORDER BY V.inicio";
@@ -22,32 +25,28 @@ public class EmpleadoDB {
         
         ConexionDB conexion = ConexionDB.getInstancia(); 
         
-        JsonArray jsonArray = getJsonArrayConsulta(SQL_Query_Empleado, conexion);
+        String consulta = conexion.consulta(SQL_Query_Empleado);
         
-        if(jsonArray.size()==0){
-            return null;
+        if(consulta!=null){
+            JSONArray jsonArray = new JSONArray(consulta);
+            
+            JSONObject jsonE = jsonArray.getJSONObject(0);
+            
+            consulta = conexion.consulta(SQL_Query_Roles);
+            JSONArray roles = new JSONArray(consulta);
+            jsonE.put("roles", roles);
+            
+            consulta = conexion.consulta(SQL_Query_Vinculaciones);
+            JSONArray vinculaciones = new JSONArray(consulta);
+            jsonE.put("vinculaciones", vinculaciones);
+            
+            consulta = conexion.consulta(SQL_Query_Disponibilidades);
+            JSONArray disponibilidades = new JSONArray(consulta);
+            jsonE.put("disponibilidades", disponibilidades);
+            
+            e = jsonE.toString();
         }
         
-        JsonObject jsonE = jsonArray.get(0).getAsJsonObject();
-        
-        jsonE.add("roles", getJsonArrayConsulta(SQL_Query_Roles, conexion));    
-        jsonE.add("vinculaciones", getJsonArrayConsulta(SQL_Query_Vinculaciones, conexion));
-        jsonE.add("disponibilidades", getJsonArrayConsulta(SQL_Query_Disponibilidades, conexion));
-        
-        return jsonE.toString();
-    }
-    
-    public static JsonArray getJsonArrayConsulta(String SQL_Query, ConexionDB conexion){  
-        
-        String consulta = conexion.consulta(SQL_Query);
-        
-        if(consulta==null){
-            return new JsonArray();
-        }
-        
-        /* Pasar el string JsonArray a JsonArray */
-        JsonParser parser = new JsonParser();
-        JsonElement tradeElement = parser.parse(consulta);
-        return tradeElement.getAsJsonArray();
+        return e;
     }
 }

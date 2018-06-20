@@ -5,23 +5,24 @@
  */
 package es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.login;
 
-import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.login.VistaLogin;
+import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.login.VistaIdentificarse;
 import es.uva.eii.dis.floristeriaHolanda.Negocio.controladoresCasoUso.ControladorCUIdentificarse;
 import es.uva.eii.dis.floristeriaHolanda.Negocio.modelos.Empleado;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.Sesion;
 
 /**
  *
  * @author super
  */
-public class ControladorVistaLogin {
-    private VistaLogin vista;
+public class ControladorVistaIdentificarse {
+    private VistaIdentificarse vista;
     private ControladorCUIdentificarse controladorCU;
     
     /**
      * Constructor de el controlador.
      * @param vista la vista que debe controlar.
      */
-    public ControladorVistaLogin(VistaLogin vista) {
+    public ControladorVistaIdentificarse(VistaIdentificarse vista) {
         this.vista = vista;
         controladorCU = new ControladorCUIdentificarse();
     }
@@ -41,7 +42,17 @@ public class ControladorVistaLogin {
             Empleado e = controladorCU.identificarEmpleado(d, p);
             
             if(e==null){
-                vista.mostrarError();
+                vista.mostrarErrorLogin();
+            }else{
+                
+                if(!e.estaActivo()){
+                    vista.mostrarErrorActivo();
+                }else{
+                    Sesion sesion = Sesion.getInstancia();
+                    sesion.setEmpleado(e);
+                    System.out.println("Acaba");
+                }
+                
             }
         }
     }
