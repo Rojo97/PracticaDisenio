@@ -26,11 +26,15 @@ public class Rol {
         return rol;
     }
     
+    public String getNombreRol(){
+        return getNombreRolPorNumero(rol);
+    }
+    
     public Date getComienzoEnRol(){
         return (Date)comienzoEnRol.clone();
     }
     
-    public static String getNombreRol(int n){
+    public static String getNombreRolPorNumero(int n){
         
         if(n<0 || n>4){
             throw new IllegalArgumentException();

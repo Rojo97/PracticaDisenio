@@ -20,25 +20,26 @@ public class Empleado {
     
     private String nif;
     private String nombre;
-    private Date fechaIni;
+    private Date fechaInicioEnEmpresa;
     private ArrayList<Rol> listaRoles;
     private ArrayList<VinculacionConLaEmpresa> listaVinculaciones;
     private ArrayList<Disponibilidad> listaDisponibilidades;
     
     private SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
     
-    public Empleado(String res){
+    public Empleado(String JSONObjectString){
         
-        JSONObject json = new JSONObject(res);
+        JSONObject json = new JSONObject(JSONObjectString);
         
-        nif = json.getString("NIF");
-        nombre = json.getString("NOMBRE");
         listaRoles = new ArrayList<>();
         listaVinculaciones = new ArrayList<>();
         listaDisponibilidades = new ArrayList<>();
         
+        nif = json.getString("NIF");
+        nombre = json.getString("NOMBRE");
+        
         try{
-            fechaIni = formato.parse(json.getString("FECHAINICIOENEMPRESA"));
+            fechaInicioEnEmpresa = formato.parse(json.getString("FECHAINICIOENEMPRESA"));
         }catch(Exception e){
             System.err.println(e.getStackTrace());
         }
@@ -70,11 +71,11 @@ public class Empleado {
     }
     
     public Date getFechaInicioEnEmpresa(){
-        return (Date)fechaIni.clone();
+        return (Date)fechaInicioEnEmpresa.clone();
     }
     
-    public void setFechaInicioEnEmpresa(Date fechaIni){
-        this.fechaIni = fechaIni;
+    public void setFechaInicioEnEmpresa(Date fechaInicioEnEmpresa){
+        this.fechaInicioEnEmpresa = fechaInicioEnEmpresa;
     }
     
     public ArrayList<Rol> getRoles(){
