@@ -5,13 +5,16 @@
  */
 package es.uva.eii.dis.floristeriaHolanda.Persistencia;
 
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.UserNotFoundException;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PasswordIncorrectException;
+
 /**
  *
  * @author super
  */
 public class FachadaPersistencia {
     
-    public static String getEmpleadoPorDNIyPass(String d, String p){
+    public static String getEmpleadoPorDNIyPass(String d, String p) throws UserNotFoundException, PasswordIncorrectException{
         return EmpleadoDB.getEmpleadoPorDNIyPass(d, p);
     }
 }

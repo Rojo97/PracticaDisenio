@@ -6,6 +6,8 @@
 package es.uva.eii.dis.floristeriaHolanda.Negocio.modelos;
 
 import es.uva.eii.dis.floristeriaHolanda.Persistencia.FachadaPersistencia;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PasswordIncorrectException;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.UserNotFoundException;
 import java.util.Iterator;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -174,13 +176,12 @@ public class Empleado {
         return true;
     }
     
-    public static Empleado getEmpleadoPorDNIyPass(String d, String p){
+    public static Empleado getEmpleadoPorDNIyPass(String d, String p) throws UserNotFoundException, PasswordIncorrectException{
+        
         String res = FachadaPersistencia.getEmpleadoPorDNIyPass(d, p);
-        Empleado e = null;
-        if(res!=null){
-            e = new Empleado(res);
-            System.out.println(res);
-        }
+        
+        Empleado e = new Empleado(res);
+        System.out.println(res);
         return e;
     }
     

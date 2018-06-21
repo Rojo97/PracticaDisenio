@@ -5,7 +5,9 @@
  */
 package es.uva.eii.dis.floristeriaHolanda.Negocio.controladoresCasoUso;
 import es.uva.eii.dis.floristeriaHolanda.Negocio.modelos.Empleado;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PasswordIncorrectException;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.Sesion;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.UserNotFoundException;
 
 /**
  *
@@ -16,7 +18,7 @@ public class ControladorCUIdentificarse {
     public ControladorCUIdentificarse(){       
     }
     
-    public Empleado identificarEmpleado(String d, String p){
+    public Empleado identificarEmpleado(String d, String p) throws UserNotFoundException, PasswordIncorrectException{
         return Empleado.getEmpleadoPorDNIyPass(d, p);
     }
     
@@ -25,6 +27,7 @@ public class ControladorCUIdentificarse {
             return false;
         }
         
+        setEmpleadoEnSesion(e);
         return true;
     }
     

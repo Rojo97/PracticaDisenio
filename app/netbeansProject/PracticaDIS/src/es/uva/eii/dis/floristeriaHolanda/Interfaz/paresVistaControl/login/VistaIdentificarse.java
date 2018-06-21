@@ -273,6 +273,11 @@ public class VistaIdentificarse extends javax.swing.JFrame {
     }
     
     protected void mostrarErrorLogin() {
+        labelLoginIncorrecto.setText("El usuario no existe");
+        labelLoginIncorrecto.setVisible(true);
+    }
+    
+    protected void mostrarErrorPassword() {
         labelLoginIncorrecto.setText("El usuario y la contraseña no coinciden");
         labelLoginIncorrecto.setVisible(true);
     }

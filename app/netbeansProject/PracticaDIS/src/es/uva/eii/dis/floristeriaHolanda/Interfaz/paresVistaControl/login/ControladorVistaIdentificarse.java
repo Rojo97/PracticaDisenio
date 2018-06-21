@@ -8,6 +8,8 @@ package es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.login;
 import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.login.VistaIdentificarse;
 import es.uva.eii.dis.floristeriaHolanda.Negocio.controladoresCasoUso.ControladorCUIdentificarse;
 import es.uva.eii.dis.floristeriaHolanda.Negocio.modelos.Empleado;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PasswordIncorrectException;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.UserNotFoundException;
 
 /**
  *
@@ -37,20 +39,21 @@ public class ControladorVistaIdentificarse {
         String d = vista.getDNI();
         String p = vista.getPassword();
         
+        
         if(!d.isEmpty() && !p.isEmpty()){
-            Empleado e = controladorCU.identificarEmpleado(d, p);
-            
-            if(e==null){
-                vista.mostrarErrorLogin();
-            }else{
+            try{
+                Empleado e = controladorCU.identificarEmpleado(d, p);
+                
                 boolean activo = controladorCU.compruebaEmpleadoActivo(e);
                 if(!activo){
                     vista.mostrarErrorActivo();
                 }else{
-                    controladorCU.setEmpleadoEnSesion(e);
                     System.out.println("Acaba");
                 }
-                
+            }catch(UserNotFoundException exception){
+                vista.mostrarErrorLogin();
+            }catch(PasswordIncorrectException exception){
+                vista.mostrarErrorPassword();
             }
         }
     }
