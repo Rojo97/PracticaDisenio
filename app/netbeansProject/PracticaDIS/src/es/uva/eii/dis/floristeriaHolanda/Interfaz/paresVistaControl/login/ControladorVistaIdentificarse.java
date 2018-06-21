@@ -8,7 +8,6 @@ package es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.login;
 import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.login.VistaIdentificarse;
 import es.uva.eii.dis.floristeriaHolanda.Negocio.controladoresCasoUso.ControladorCUIdentificarse;
 import es.uva.eii.dis.floristeriaHolanda.Negocio.modelos.Empleado;
-import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.Sesion;
 
 /**
  *
@@ -44,12 +43,11 @@ public class ControladorVistaIdentificarse {
             if(e==null){
                 vista.mostrarErrorLogin();
             }else{
-                
-                if(!e.estaActivo()){
+                boolean activo = controladorCU.compruebaEmpleadoActivo(e);
+                if(!activo){
                     vista.mostrarErrorActivo();
                 }else{
-                    Sesion sesion = Sesion.getInstancia();
-                    sesion.setEmpleado(e);
+                    controladorCU.setEmpleadoEnSesion(e);
                     System.out.println("Acaba");
                 }
                 
@@ -64,10 +62,6 @@ public class ControladorVistaIdentificarse {
             vista.setPasswordVisible('•');
         }
     }
-    
-    
-    
-    
     
     
 }

@@ -162,12 +162,12 @@ public class Empleado {
     
     public boolean estaActivo(){
         VinculacionConLaEmpresa v = getUltimaVinculacion();
-        if(v.getVinculo()!=1){
+        if(!v.getVinculo().getNombre().equals("Contratado")){
             return false;
         }
         
         Disponibilidad d = getUltimaDisponibilidad();
-        if(d.getDisponibilidad()!=3){
+        if(!d.getDisponibilidad().getNombre().equals("Trabajando")){
             return false;
         }
         

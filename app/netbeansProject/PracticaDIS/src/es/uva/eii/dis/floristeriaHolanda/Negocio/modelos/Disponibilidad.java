@@ -15,17 +15,25 @@ public class Disponibilidad {
     
     private Date comienzo;
     private Date finalPrevisto;
-    private int disponibilidad;
+    private TipoDisponibilidad disponibilidad;
     
     public Disponibilidad(Date comienzo, Date finalPrevisto, int disponibilidad){
         
         this.comienzo = comienzo;
         this.finalPrevisto = finalPrevisto;
-        this.disponibilidad = disponibilidad;
+        this.disponibilidad = TipoDisponibilidad.getTipoDisponibilidadPorNumero(disponibilidad);
     }
     
-    public int getDisponibilidad(){
+    public TipoDisponibilidad getDisponibilidad(){
         return disponibilidad;
+    }
+    
+    public String getNombreDisponibilidad(){
+        return disponibilidad.getNombre();
+    }
+    
+    public int getNumeroDisponibilidad(){
+        return disponibilidad.getNumero();
     }
     
     public Date getComienzo(){
@@ -34,28 +42,5 @@ public class Disponibilidad {
     
     public Date getFinalPrevisto(){
         return (Date)finalPrevisto.clone();
-    }
-    
-    public static String getNombreDisponibilidad(int n){
-        
-        if(n<0 || n>3){
-            throw new IllegalArgumentException();
-        }
-        
-        String disponibilidad = "";
-        
-        switch(n){
-            case(1):
-                disponibilidad = "Vacaciones";
-                break;
-            case(2):
-                disponibilidad = "BajaTemporal";
-                 break;
-            case(3):
-                disponibilidad = "Trabajando";
-                 break;
-        }
-        
-        return disponibilidad;
     }
 }

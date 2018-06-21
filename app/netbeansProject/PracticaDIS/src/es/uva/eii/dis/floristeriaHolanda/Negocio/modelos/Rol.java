@@ -14,49 +14,27 @@ import java.util.Date;
 public class Rol {
     
     private Date comienzoEnRol;
-    private int rol;
+    private TipoRol rol;
     
     public Rol(Date comienzoEnRol, int rol){
         
         this.comienzoEnRol = comienzoEnRol;
-        this.rol = rol;
+        this.rol = TipoRol.getTipoRolPorNumero(rol);
     }
     
-    public int getRol(){
+    public TipoRol getRol(){
         return rol;
     }
     
+    public int getNumeroRol(){
+        return rol.getNumero();
+    }
+    
     public String getNombreRol(){
-        return getNombreRolPorNumero(rol);
+        return rol.getNombre();
     }
     
     public Date getComienzoEnRol(){
         return (Date)comienzoEnRol.clone();
-    }
-    
-    public static String getNombreRolPorNumero(int n){
-        
-        if(n<0 || n>4){
-            throw new IllegalArgumentException();
-        }
-        
-        String rol = "";
-        
-        switch(n){
-            case(1):
-                rol = "Supervisor";
-                break;
-            case(2):
-                rol = "Administrativo";
-                break;
-            case(3):
-                rol = "Operario";
-                break;
-            case(4):
-                rol = "Dependiente";
-                break;
-        }
-        
-        return rol;
     }
 }

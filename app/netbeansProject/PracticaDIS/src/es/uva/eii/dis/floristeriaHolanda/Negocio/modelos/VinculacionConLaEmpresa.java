@@ -15,43 +15,26 @@ import java.lang.IllegalArgumentException;
 public class VinculacionConLaEmpresa {
     
     private Date inicio;
-    private int vinculo;
+    private TipoVinculo vinculo;
     
     public VinculacionConLaEmpresa(Date inicio, int vinculo){
         this.inicio = inicio;
-        this.vinculo = vinculo;
+        this.vinculo = TipoVinculo.getTipoVinculoPorNumero(vinculo);
     }
     
-    public int getVinculo(){
+    public TipoVinculo getVinculo(){
         return vinculo;
+    }
+    
+    public String getNombreVinculo(){
+        return vinculo.getNombre();
+    }
+    
+    public int getNumeroVinculo(){
+        return vinculo.getNumero();
     }
     
     public Date getInicio(){
         return (Date)inicio.clone();
-    }
-    
-    
-
-    public static String getNombreVinculacion(int n){
-        
-        if(n<0 || n>3){
-            throw new IllegalArgumentException();
-        }
-        
-        String vinculacion = "";
-        
-        switch(n){
-            case(1):
-                vinculacion = "Contratado";
-                break;
-            case(2):
-                vinculacion = "Despedido";
-                 break;
-            case(3):
-                vinculacion = "EnERTE";
-                 break;
-        }
-        
-        return vinculacion;
     }
 }
