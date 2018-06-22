@@ -8,6 +8,7 @@ package es.uva.eii.dis.floristeriaHolanda.Negocio.modelos;
 import es.uva.eii.dis.floristeriaHolanda.Persistencia.FachadaPersistencia;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PlantNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,7 +22,7 @@ public class Producto {
     private String nombre;
     private String descripcion;
     private short existencias;
-    private float precioVenta;
+    private float precioDeVenta;
     private float precioCompra;
     private short diasParaEntregaDelProveedor;
     private String tipoDeProductoAuxiliar;
@@ -41,15 +42,15 @@ public class Producto {
         cantidadNecesaria = (short) json.getInt("CANTIDADNECESARIA");
         
         if(subtipo.equals("planta")){
-            precioVenta = json.getFloat("precioVenta");
-            precioCompra = json.getFloat("precioCompra");
-            diasParaEntregaDelProveedor = (short) json.getInt("DIASPARALAENTREGADELPROVEEDOR");
+            precioDeVenta = json.getFloat("PRECIODEVENTA");
+            precioCompra = json.getFloat("PRECIOCOMPRA");
+            diasParaEntregaDelProveedor = (short) json.getInt("DIASPARAENTREGADELPROVEEDOR");
             JSONArray lotesjson = json.getJSONArray("lotes");
             lotes = new ArrayList<>();
             Iterator it = lotesjson.iterator();
             while(it.hasNext()){
             
-                JSONObject jsonLote = (JSONObject)it.next();
+                JSONObject jsonLote = (JSONObject) it.next();
             
                 try{
                     Lote lote = new Lote(jsonLote);
@@ -66,7 +67,6 @@ public class Producto {
     public static Producto getPlantaPorNombre(String nombre) throws PlantNotFoundException{
         String res = FachadaPersistencia.getPlantaPorNombre(nombre);
         Producto planta = new Producto(res);
-        System.out.println(res);
         return planta;
     }
 

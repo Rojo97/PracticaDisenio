@@ -14,11 +14,12 @@ import org.json.JSONObject;
  * @author rojo
  */
 public class ProductoDB {
-    public static String getPlantaPorNombre(String Nombre) throws PlantNotFoundException{
+    public static String getPlantaPorNombre(String nombre) throws PlantNotFoundException{
+        
         String res = null;
         
-        String SQL_Query_Planta = "SELECT * FROM PRODUCTO P WHERE P.NOMBRE = '" + Nombre + "' AND P.SUBTIPO = 'planta'";
-        String SQL_Query_Lotes = "SELECT L.*, AS LOTES FROM LOTE L INNER JOIN PRODUCTO P ON (L.PLANTA = P.CODIGO) WHERE P.NOMBRE = '" + Nombre + "' AND P.SUBTIPO = 'planta'";
+        String SQL_Query_Planta = "SELECT * FROM PRODUCTO P WHERE P.NOMBRE = '" + nombre + "' AND P.SUBTIPO = 'planta'";
+        String SQL_Query_Lotes = "SELECT * FROM LOTE L INNER JOIN PRODUCTO P ON (L.PLANTA = P.CODIGO) WHERE P.NOMBRE = '" + nombre + "' AND P.SUBTIPO = 'planta'";
         
         ConexionDB conexion = ConexionDB.getInstancia(); 
         String consulta = conexion.consulta(SQL_Query_Planta);
@@ -32,13 +33,10 @@ public class ProductoDB {
         JSONObject json = jsonArray.getJSONObject(0);
             
         consulta = conexion.consulta(SQL_Query_Lotes);
-        if(consulta!=null){
-            JSONArray lotes = new JSONArray(consulta);
-            json.put("lotes", lotes);
-            
-            res = json.toString();
-        }
-        
+        JSONArray lotes = new JSONArray(consulta);
+        json.put("lotes", lotes);
+        res = json.toString();
+        //System.out.println(res);
         return res;
     }
 }

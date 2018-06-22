@@ -1,7 +1,7 @@
-Fri Jun 22 15:46:56 CEST 2018 : Servidor de red Apache Derby: Se ha iniciado 10.10.2.0 - (1582446) y está listo para aceptar las conexiones en el puerto 1527
+Fri Jun 22 21:47:33 CEST 2018 : Servidor de red Apache Derby: Se ha iniciado 10.10.2.0 - (1582446) y está listo para aceptar las conexiones en el puerto 1527
 ----------------------------------------------------------------
-Fri Jun 22 15:46:57 CEST 2018:
- Iniciando instancia a816c00e-0164-27bf-778f-00001e4d8cf8 de Derby, versión The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): 
+Fri Jun 22 21:47:33 CEST 2018:
+ Iniciando instancia a816c00e-0164-2909-9bdc-00001e4d8cf8 de Derby, versión The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): 
 en el directorio de base de datos /home/rojo/Documentos/GITrepos/PracticaDesing/app/db/invernadero con el cargador de clases sun.misc.Launcher$AppClassLoader@3764951d
 Cargado desde file:/usr/local/glassfish-4.1.1/javadb/lib/derby.jar
 java.vendor=Oracle Corporation
@@ -12,9 +12,3 @@ os.arch=amd64
 os.version=4.10.0-38-generic
 derby.system.home=/home/rojo/Documentos/GITrepos/PracticaDesing/app/db
 Cargador de clases de base de datos iniciado - derby.database.classpath=''
-----------------------------------------------------------------
-Fri Jun 22 19:20:18 CEST 2018: cerrando motor de Derby
-----------------------------------------------------------------
-Fri Jun 22 19:20:18 CEST 2018:
-Cerrando la instancia a816c00e-0164-27bf-778f-00001e4d8cf8 en el directorio de base de datos /home/rojo/Documentos/GITrepos/PracticaDesing/app/db/invernadero con cargador de clases sun.misc.Launcher$AppClassLoader@3764951d
-----------------------------------------------------------------

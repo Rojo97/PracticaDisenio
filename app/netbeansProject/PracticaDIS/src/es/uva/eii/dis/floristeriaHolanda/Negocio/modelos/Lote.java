@@ -27,7 +27,7 @@ public class Lote {
             id =  jsonLote.getInt("ID");
             cantidad = (short) jsonLote.getInt("CANTIDAD");
             try{
-                fechadeCreacion = formato.parse(jsonLote.getString("FECHAINICIOENEMPRESA"));
+                fechadeCreacion = formato.parse(jsonLote.getString("FECHADECREACION"));
             }catch(Exception e){
                 System.err.println(e.getStackTrace());
             }
@@ -36,7 +36,7 @@ public class Lote {
         }
 
     public String getEstado() {
-        return estados[estado];
+        return estados[estado-1];
     }
 
     public String getId() {

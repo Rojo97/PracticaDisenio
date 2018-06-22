@@ -15,11 +15,18 @@ public class VistaModificarLote extends javax.swing.JFrame {
     /**
      * Creates new form VistaModificarEstadoLote
      */
-    public VistaModificarLote() {
+  public VistaModificarLote() {
         initComponents();
         selectorLotes.hide();
         jLabel2.hide();
         errorPlanta.hide();
+        confirmar.hide();
+        error.hide();
+        errorLote.hide();
+        errorPlanta.hide();
+        jLabel3.hide();
+        selectorEstado.hide();
+        introducir.hide();
         controlador = new CtrlVistaModificarLote(this);
     }
 
@@ -36,23 +43,43 @@ public class VistaModificarLote extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         selectorLotes = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        buscar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        selectorEstado = new javax.swing.JComboBox<>();
+        cancelar = new javax.swing.JButton();
+        confirmar = new javax.swing.JButton();
         errorPlanta = new javax.swing.JLabel();
+        errorLote = new javax.swing.JLabel();
+        error = new javax.swing.JLabel();
+        buscar = new javax.swing.JButton();
+        introducir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        planta.setText("Nombre Planta");
         planta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 plantaActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Introducir nombre de la planta");
+        jLabel1.setText("Introducir nombre de la planta:");
 
-        selectorLotes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lote 1", "Lote2" }));
+        selectorLotes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
 
-        jLabel2.setText("Seleccionar lote a cambiar");
+        jLabel2.setText("Seleccionar lote a cambiar:");
+
+        jLabel3.setText("Seleccionar nuevo estado:");
+
+        selectorEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "pendienteDePlantar", "plantado", "enProduccion", "finDeVidaUtil", "eliminado" }));
+
+        cancelar.setText("Cancelar");
+
+        confirmar.setText("Confirmar");
+
+        errorPlanta.setText("* No hay lotes asociados a la planta");
+
+        errorLote.setText("* Todos los lotes estan eliminados");
+
+        error.setText("* Errores detectados");
 
         buscar.setText("Buscar");
         buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -61,44 +88,73 @@ public class VistaModificarLote extends javax.swing.JFrame {
             }
         });
 
-        errorPlanta.setText("No se ha encontrado una planta con el nombre disponible.");
+        introducir.setText("Introducir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(planta)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                            .addComponent(selectorEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3)
                             .addComponent(selectorLotes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(planta)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(errorPlanta))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(errorLote)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(buscar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(error)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buscar)
-                        .addGap(27, 27, 27))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(errorPlanta)
-                        .addContainerGap(70, Short.MAX_VALUE))))
+                        .addComponent(introducir)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(planta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buscar))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(errorPlanta))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(planta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(errorLote))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(selectorLotes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
-                .addComponent(errorPlanta)
-                .addGap(45, 45, 45))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(selectorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(error)
+                    .addComponent(introducir))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelar)
+                    .addComponent(confirmar)))
         );
 
         pack();
@@ -111,32 +167,42 @@ public class VistaModificarLote extends javax.swing.JFrame {
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         controlador.procesaEventoPlanta();
     }//GEN-LAST:event_buscarActionPerformed
-
-    public String getPlanta(){
-        return planta.getText();
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscar;
+    private javax.swing.JButton cancelar;
+    private javax.swing.JButton confirmar;
+    private javax.swing.JLabel error;
+    private javax.swing.JLabel errorLote;
     private javax.swing.JLabel errorPlanta;
+    private javax.swing.JButton introducir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField planta;
+    private javax.swing.JComboBox<String> selectorEstado;
     private javax.swing.JComboBox<String> selectorLotes;
     // End of variables declaration//GEN-END:variables
 
+    public String getPlanta() {
+        return planta.getText();
+    }
+
     void mostrarErrorPlanta() {
         errorPlanta.setVisible(true);
-        
     }
 
     void addLote(String[] lote) {
-        String stringLote = "id: "+ lote[0]+ ", fecha: "+lote[1]+ ", estado: " +lote[2];
-        selectorLotes.addItem(stringLote);
+        selectorLotes.addItem("ID:" + lote[0]+ " Fecha:" + lote[1] + " Estado:" + lote[2]);
     }
 
     void muestraLotes() {
+        buscar.hide();
         selectorLotes.setVisible(true);
-        buscar.setVisible(false);
+        jLabel2.setVisible(true);
+        jLabel3.setVisible(true);
+        selectorEstado.setVisible(true);
+        introducir.setVisible(true);
     }
 }
