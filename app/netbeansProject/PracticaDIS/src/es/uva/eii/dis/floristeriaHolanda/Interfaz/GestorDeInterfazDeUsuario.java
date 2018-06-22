@@ -95,6 +95,13 @@ public class GestorDeInterfazDeUsuario {
         currentState.setVisible(true);
     }
     
+    public void modificarLote(){
+        currentState.dispose();
+        
+        currentState = new VistaModificarLote();
+        currentState.setVisible(true); 
+    }
+    
     public void cerrarSesion() {
                 
         currentState.dispose();

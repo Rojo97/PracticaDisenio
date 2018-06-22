@@ -39,7 +39,8 @@ public class ConexionDB {
         if(conexion!=null){
             return conexion;
         }else{
-            return new ConexionDB();
+            conexion = new ConexionDB();
+            return conexion;
         }
     }
     
