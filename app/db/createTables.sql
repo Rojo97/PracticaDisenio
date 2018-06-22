@@ -93,7 +93,7 @@ create table VINCULACIONCONLAEMPRESA
 	Empleado VARCHAR(9) not null,
 	Vinculo SMALLINT not null,
 		FOREIGN KEY(Empleado) REFERENCES EMPLEADO(Nif),
-		FOREIGN KEY(Vinculo) REFERENCES TIPODEVINCULACION(IdTipo) 
+		FOREIGN KEY(Vinculo) REFERENCES TIPODEVINCULACION(IdTipo)
 );
 
 -- Association
@@ -156,7 +156,7 @@ create table LINEADEPEDIDO
 		FOREIGN KEY(Producto) REFERENCES PRODUCTO(Codigo)
 );
 
--- Entity 
+-- Entity
 create table TRANSFERENCIA
 (
 	Id INTEGER not null,
@@ -252,7 +252,7 @@ create table FLORESENLOTE
 	Lote INTEGER not null,
 		FOREIGN KEY(Flor) REFERENCES PRODUCTO(Codigo),
 		FOREIGN KEY(Lote) REFERENCES LOTE(Id)
-	
+
 );
 
 -- Entity
@@ -263,5 +263,6 @@ create table OPERACIONDEMANTENIMIENTO
 	Operario VARCHAR(9) not null,
 		PRIMARY KEY(FechaDeRealizacion,Tipo),
 		FOREIGN KEY(Tipo) REFERENCES TIPODEOPERACIONDEMANTENIMIENTO(IdTipo),
-		FOREIGN KEY(Operario) REFERENCES EMPLEADO(Nif)
+		FOREIGN KEY(Operario) REFERENCES EMPLEADO(Nif),
+		FOREIGN KEY(Lote) REFERENCES LOTE(Id)
 );
