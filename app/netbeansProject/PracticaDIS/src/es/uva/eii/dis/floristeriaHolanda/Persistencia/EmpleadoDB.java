@@ -22,9 +22,9 @@ public class EmpleadoDB {
      
         String SQL_Query_Empleado_Sin_Pass = "SELECT * FROM Empleado E WHERE E.Nif = '" + d + "'";
         String SQL_Query_Empleado = "SELECT * FROM Empleado E WHERE E.Nif = '" + d + "' and E.Password = '" + p + "'";
-        String SQL_Query_Roles = "SELECT * FROM RolesEnEmpresa R WHERE R.Empleado = '" + d + "' ORDER BY R.ComienzoEnRol";
-        String SQL_Query_Vinculaciones = "SELECT * FROM VinculacionConLaEmpresa V WHERE V.Empleado = '" + d + "' ORDER BY V.inicio";
-        String SQL_Query_Disponibilidades = "SELECT * FROM DisponibilidadEmpleado D WHERE D.Empleado = '" + d + "' ORDER BY D.Comienzo";
+        String SQL_Query_Roles = "SELECT R.COMIENZOENROL, T1.NOMBRETIPO AS ROL FROM ROLESENEMPRESA R INNER JOIN TIPODEROL T1 ON (R.ROL = T1.IDTIPO) WHERE R.EMPLEADO = '" + d + "' ORDER BY R.COMIENZOENROL";
+        String SQL_Query_Vinculaciones = "SELECT V.INICIO, T1.NOMBRETIPO AS VINCULO FROM VINCULACIONCONLAEMPRESA V INNER JOIN TIPODEVINCULACION T1 ON (V.VINCULO = T1.IDTIPO) WHERE V.EMPLEADO = '" + d + "' ORDER BY V.INICIO";
+        String SQL_Query_Disponibilidades = "SELECT D.COMIENZO, D.FINALPREVISTO, T1.NOMBRETIPO AS DISPONIBILIDAD FROM DISPONIBILIDADEMPLEADO D INNER JOIN TIPODEDISPONIBILIDAD T1 ON (D.DISPONIBILIDAD = T1.IDTIPO) WHERE D.EMPLEADO = '" + d + "' ORDER BY D.COMIENZO";
         
         ConexionDB conexion = ConexionDB.getInstancia(); 
         
@@ -62,8 +62,8 @@ public class EmpleadoDB {
     }
     
     public static String getRolesEmpleadoPorDNI(String d){
-        //String SQL_Query_Roles_Con_Nombre = "SELECT R.COMIENZOENROL, T1.NOMBRETIPO FROM ROLESENEMPRESA R INNER JOIN TIPODEROL T1 ON (R.ROL = T1.IDTIPO) WHERE R.EMPLEADO = '" + d + "' ORDER BY R.COMIENZOENROL";
-        String SQL_Query_Roles = "SELECT * FROM RolesEnEmpresa R WHERE R.Empleado = '" + d + "' ORDER BY R.ComienzoEnRol";
+        String SQL_Query_Roles = "SELECT R.COMIENZOENROL, T1.NOMBRETIPO AS ROL FROM ROLESENEMPRESA R INNER JOIN TIPODEROL T1 ON (R.ROL = T1.IDTIPO) WHERE R.EMPLEADO = '" + d + "' ORDER BY R.COMIENZOENROL";
+        //String SQL_Query_Roles = "SELECT * FROM RolesEnEmpresa R WHERE R.Empleado = '" + d + "' ORDER BY R.ComienzoEnRol";
         
         ConexionDB conexion = ConexionDB.getInstancia(); 
         
@@ -71,8 +71,8 @@ public class EmpleadoDB {
     }
     
     public static String getVinculacionesEmpleadoPorDNI(String d){
-        //String SQL_Query_Vinculaciones_Con_Nombre = "SELECT V.INICIO, T1.NOMBRETIPO FROM VINCULACIONCONLAEMPRESA V INNER JOIN TIPODEVINCULACION T1 ON (V.VINCULO = T1.IDTIPO) WHERE V.EMPLEADO = '" + "' ORDER BY V.INICIO";
-        String SQL_Query_Vinculaciones = "SELECT * FROM VinculacionConLaEmpresa V WHERE V.Empleado = '" + d + "' ORDER BY V.inicio";
+        String SQL_Query_Vinculaciones = "SELECT V.INICIO, T1.NOMBRETIPO AS VINCULO FROM VINCULACIONCONLAEMPRESA V INNER JOIN TIPODEVINCULACION T1 ON (V.VINCULO = T1.IDTIPO) WHERE V.EMPLEADO = '" + "' ORDER BY V.INICIO";
+        //String SQL_Query_Vinculaciones = "SELECT * FROM VinculacionConLaEmpresa V WHERE V.Empleado = '" + d + "' ORDER BY V.inicio";
         
         ConexionDB conexion = ConexionDB.getInstancia(); 
         
@@ -80,8 +80,8 @@ public class EmpleadoDB {
     }
     
     public static String getDisponibilidadesEmpleadoPorDNI(String d){ 
-        //String SQL_Query_Disponibilidades_Con_Nombre = "SELECT D.COMIENZO, D.FINALPREVISTO, T1.NOMBRETIPO FROM DISPONIBILIDADEMPLEADO D INNER JOIN TIPODEDISPONIBILIDAD T1 ON (D.DISPONIBILIDAD = T1.IDTIPO) WHERE D.EMPLEADO = '" + d + "' ORDER BY D.COMIENZO";
-        String SQL_Query_Disponibilidades = "SELECT * FROM DisponibilidadEmpleado D WHERE D.Empleado = '" + d + "' ORDER BY D.Comienzo";
+        String SQL_Query_Disponibilidades = "SELECT D.COMIENZO, D.FINALPREVISTO, T1.NOMBRETIPO AS DISPONIBILIDAD FROM DISPONIBILIDADEMPLEADO D INNER JOIN TIPODEDISPONIBILIDAD T1 ON (D.DISPONIBILIDAD = T1.IDTIPO) WHERE D.EMPLEADO = '" + d + "' ORDER BY D.COMIENZO";
+        //String SQL_Query_Disponibilidades = "SELECT * FROM DisponibilidadEmpleado D WHERE D.Empleado = '" + d + "' ORDER BY D.Comienzo";
         
         ConexionDB conexion = ConexionDB.getInstancia(); 
         

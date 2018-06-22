@@ -15,24 +15,24 @@ import java.lang.IllegalArgumentException;
 public class VinculacionConLaEmpresa {
     
     private Date inicio;
-    private TipoVinculo vinculo;
+    private String vinculo;
     
-    public VinculacionConLaEmpresa(Date inicio, int vinculo){
+    public VinculacionConLaEmpresa(Date inicio, String vinculo){
         this.inicio = inicio;
-        this.vinculo = TipoVinculo.getTipoVinculoPorNumero(vinculo);
+        this.vinculo = vinculo;
     }
     
-    public TipoVinculo getVinculo(){
+    public String getVinculo(){
         return vinculo;
     }
     
-    public String getNombreVinculo(){
+    /*public String getNombreVinculo(){
         return vinculo.getNombre();
     }
     
     public int getNumeroVinculo(){
         return vinculo.getNumero();
-    }
+    }*/
     
     public Date getInicio(){
         return (Date)inicio.clone();

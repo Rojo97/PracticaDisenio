@@ -15,26 +15,26 @@ public class Disponibilidad {
     
     private Date comienzo;
     private Date finalPrevisto;
-    private TipoDisponibilidad disponibilidad;
+    private String disponibilidad;
     
-    public Disponibilidad(Date comienzo, Date finalPrevisto, int disponibilidad){
+    public Disponibilidad(Date comienzo, Date finalPrevisto, String disponibilidad){
         
         this.comienzo = comienzo;
         this.finalPrevisto = finalPrevisto;
-        this.disponibilidad = TipoDisponibilidad.getTipoDisponibilidadPorNumero(disponibilidad);
+        this.disponibilidad = disponibilidad;
     }
     
-    public TipoDisponibilidad getDisponibilidad(){
+    public String getDisponibilidad(){
         return disponibilidad;
     }
     
-    public String getNombreDisponibilidad(){
+    /*public String getNombreDisponibilidad(){
         return disponibilidad.getNombre();
-    }
+    }*/
     
-    public int getNumeroDisponibilidad(){
+    /*public int getNumeroDisponibilidad(){
         return disponibilidad.getNumero();
-    }
+    }*/
     
     public Date getComienzo(){
         return (Date)comienzo.clone();

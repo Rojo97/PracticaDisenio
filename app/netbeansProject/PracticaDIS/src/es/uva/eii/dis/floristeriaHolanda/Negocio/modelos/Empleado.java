@@ -95,7 +95,7 @@ public class Empleado {
             JSONObject jsonRol = (JSONObject)it.next();
             
             try{
-                int tipo = jsonRol.getInt("ROL");
+                String tipo = jsonRol.getString("ROL");
                 Date fecha = formato.parse(jsonRol.getString("COMIENZOENROL"));
                 Rol r = new Rol(fecha,tipo);
                 
@@ -122,7 +122,7 @@ public class Empleado {
             JSONObject jsonVinculacion = (JSONObject)it.next();
             
             try{
-                int tipo = jsonVinculacion.getInt("VINCULO");
+                String tipo = jsonVinculacion.getString("VINCULO");
                 Date fecha = formato.parse(jsonVinculacion.getString("INICIO"));
                 VinculacionConLaEmpresa v = new VinculacionConLaEmpresa(fecha,tipo);
                 
@@ -149,7 +149,7 @@ public class Empleado {
             JSONObject jsonDisponibilidad = (JSONObject)it.next();
             
             try{
-                int tipo = jsonDisponibilidad.getInt("DISPONIBILIDAD");
+                String tipo = jsonDisponibilidad.getString("DISPONIBILIDAD");
                 Date comienzo = formato.parse(jsonDisponibilidad.getString("COMIENZO"));
                 Date finalPrevisto = formato.parse(jsonDisponibilidad.getString("FINALPREVISTO"));
                 Disponibilidad d = new Disponibilidad(comienzo, finalPrevisto, tipo);
@@ -164,12 +164,12 @@ public class Empleado {
     
     public boolean estaActivo(){
         VinculacionConLaEmpresa v = getUltimaVinculacion();
-        if(!v.getVinculo().getNombre().equals("Contratado")){
+        if(!v.getVinculo().equals("Contratado")){
             return false;
         }
         
         Disponibilidad d = getUltimaDisponibilidad();
-        if(!d.getDisponibilidad().getNombre().equals("Trabajando")){
+        if(!d.getDisponibilidad().equals("Trabajando")){
             return false;
         }
         

@@ -14,25 +14,25 @@ import java.util.Date;
 public class Rol {
     
     private Date comienzoEnRol;
-    private TipoRol rol;
+    private String rol;
     
-    public Rol(Date comienzoEnRol, int rol){
+    public Rol(Date comienzoEnRol, String rol){
         
         this.comienzoEnRol = comienzoEnRol;
-        this.rol = TipoRol.getTipoRolPorNumero(rol);
+        this.rol = rol;
     }
     
-    public TipoRol getRol(){
+    public String getRol(){
         return rol;
     }
     
-    public int getNumeroRol(){
+    /*public int getNumeroRol(){
         return rol.getNumero();
     }
     
     public String getNombreRol(){
         return rol.getNombre();
-    }
+    }*/
     
     public Date getComienzoEnRol(){
         return (Date)comienzoEnRol.clone();
