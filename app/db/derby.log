@@ -1,20 +1,14 @@
-Fri Jun 22 13:56:28 CEST 2018 : Servidor de red Apache Derby: Se ha iniciado 10.10.2.0 - (1582446) y está listo para aceptar las conexiones en el puerto 1527
+Wed Jun 20 00:59:51 CEST 2018 : Servidor de red Apache Derby: Se ha iniciado 10.10.2.0 - (1582446) y está listo para aceptar las conexiones en el puerto 1527
 ----------------------------------------------------------------
-Fri Jun 22 13:56:28 CEST 2018:
- Iniciando instancia a816c00e-0164-275a-51d5-00001e4d8cf8 de Derby, versión The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): 
-en el directorio de base de datos /home/rojo/Documentos/GITrepos/PracticaDesing/app/db/invernadero con el cargador de clases sun.misc.Launcher$AppClassLoader@3764951d
-Cargado desde file:/usr/local/glassfish-4.1.1/javadb/lib/derby.jar
+Wed Jun 20 00:59:51 CEST 2018:
+ Iniciando instancia a816c00e-0164-1a46-9616-000060319dfb de Derby, versión The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): 
+en el directorio de base de datos /home/ismael/Documentos/GitRepos/PracticaDesing/app/db/invernadero con el cargador de clases sun.misc.Launcher$AppClassLoader@5e2de80c
+Cargado desde file:/home/ismael/GlassFish_Server/javadb/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_171-8u171-b11-0ubuntu0.16.04.1-b11
-user.dir=/usr/local/glassfish-4.1.1/javadb
+java.runtime.version=1.8.0_172-b11
+user.dir=/home/ismael/GlassFish_Server/javadb
 os.name=Linux
 os.arch=amd64
-os.version=4.10.0-38-generic
-derby.system.home=/home/rojo/Documentos/GITrepos/PracticaDesing/app/db
+os.version=4.14.44-1-MANJARO
+derby.system.home=/home/ismael/Documentos/GitRepos/PracticaDesing/app/db
 Cargador de clases de base de datos iniciado - derby.database.classpath=''
-----------------------------------------------------------------
-Fri Jun 22 13:59:44 CEST 2018: cerrando motor de Derby
-----------------------------------------------------------------
-Fri Jun 22 13:59:44 CEST 2018:
-Cerrando la instancia a816c00e-0164-275a-51d5-00001e4d8cf8 en el directorio de base de datos /home/rojo/Documentos/GITrepos/PracticaDesing/app/db/invernadero con cargador de clases sun.misc.Launcher$AppClassLoader@3764951d
-----------------------------------------------------------------
