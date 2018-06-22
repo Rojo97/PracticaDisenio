@@ -8,6 +8,8 @@ import es.uva.eii.dis.floristeriaHolanda.Negocio.modelos.Empleado;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PasswordIncorrectException;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.Sesion;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.UserNotFoundException;
+import es.uva.eii.dis.floristeriaHolanda.Main.Main;
+import es.uva.eii.dis.floristeriaHolanda.Interfaz.GestorDeInterfazDeUsuario;
 
 /**
  *
@@ -34,5 +36,10 @@ public class ControladorCUIdentificarse {
     public void setEmpleadoEnSesion(Empleado e){
         Sesion sesion = Sesion.getInstancia();
         sesion.setEmpleado(e);
+    }
+    
+    public void empleadoIdentificado(){
+        GestorDeInterfazDeUsuario stateMachine = Main.getStateMachineLogin();
+        stateMachine.empleadoIdentificado();
     }
 }

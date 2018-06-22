@@ -6,6 +6,10 @@
 package es.uva.eii.dis.floristeriaHolanda.Interfaz;
 
 import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.login.VistaIdentificarse;
+import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.opciones.VistaOpcionesAdministrativo;
+import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.opciones.VistaOpcionesDependiente;
+import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.opciones.VistaOpcionesOperario;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.Sesion;
 import javax.swing.JFrame;
 
 /**
@@ -63,5 +67,39 @@ public class GestorDeInterfazDeUsuario {
      */
     void dispose(){
         currentState.dispose();
+    }
+    
+    /**
+     * Método que cierra la ventana actual y abre la anterior.
+     */
+    public void empleadoIdentificado() {
+        Sesion sesion = Sesion.getInstancia();
+        
+        String rol = sesion.getEmpleado().getUltimoRol().getRol();
+        System.out.println("Rol: " + rol);
+                
+        currentState.dispose();
+        
+        switch(rol){
+            case "Administrativo":
+                currentState = new VistaOpcionesAdministrativo();
+                break;
+            case "Dependiente":
+                currentState = new VistaOpcionesDependiente();
+                break;
+            case "Operario":
+                currentState = new VistaOpcionesOperario();
+                break;
+        }
+        
+        currentState.setVisible(true);
+    }
+    
+    public void cerrarSesion() {
+                
+        currentState.dispose();
+        
+        currentState = new VistaIdentificarse();
+        currentState.setVisible(true);
     }
 }

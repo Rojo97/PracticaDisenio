@@ -49,6 +49,7 @@ public class ControladorVistaIdentificarse {
                     vista.mostrarErrorActivo();
                 }else{
                     System.out.println("Acaba");
+                    controladorCU.empleadoIdentificado();
                 }
             }catch(UserNotFoundException exception){
                 vista.mostrarErrorLogin();
