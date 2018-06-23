@@ -10,6 +10,8 @@ import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.FloresEnLoteNotFoundEx
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.UserNotFoundException;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PasswordIncorrectException;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PlantNotFoundException;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.ProductoNotFoundException;
+import java.util.Date;
 
 /**
  *
@@ -19,6 +21,10 @@ public class FachadaPersistencia {
     
     public static String getEmpleadoPorDNIyPass(String d, String p) throws UserNotFoundException, PasswordIncorrectException{
         return EmpleadoDB.getEmpleadoPorDNIyPass(d, p);
+    }
+
+    public static String getProductoPorCodigo(String codigo) throws ProductoNotFoundException {
+        return ProductoDB.getProductoPorCodigo(codigo);
     }
     
     public static String getPlantaPorNombre(String nombre) throws PlantNotFoundException{
@@ -39,5 +45,17 @@ public class FachadaPersistencia {
 
     public static void actualizaEstimacion(int cantidad, String flor, int lote, boolean nuevo) {
         FloresEnLoteDB.guardar(cantidad, flor, lote, nuevo);
+    }
+
+    public static void actualizaProducto(String codigo, short existencias) {
+        ProductoDB.actualizaProducto(codigo, existencias);
+    }
+
+    public static void registraVenta(String dependiente, int id) {
+        VentaDB.guarda(dependiente, id);
+    }
+
+    public static void registraVenta(int id, short cantidad, String producto) {
+        LineaDeVentaDB.guarda(id, cantidad, producto);
     }
 }

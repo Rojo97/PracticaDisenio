@@ -76,7 +76,6 @@ public class ConexionDB {
             System.err.println("thats bad: "+e.getMessage());
         }
     }
-        
     
     public PreparedStatement getPreparedStatement(String s){
         PreparedStatement ps = null;

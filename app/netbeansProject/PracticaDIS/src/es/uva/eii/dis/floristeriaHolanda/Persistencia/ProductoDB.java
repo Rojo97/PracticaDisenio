@@ -7,6 +7,7 @@ package es.uva.eii.dis.floristeriaHolanda.Persistencia;
 
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.FlorNotFoundException;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PlantNotFoundException;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.ProductoNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -59,5 +60,33 @@ public class ProductoDB {
         res = json.toString();
         System.out.println(res);
         return res;
+    }
+
+    static String getProductoPorCodigo(String codigo) throws ProductoNotFoundException {
+        String res = null;
+        String SQL_Query_Producto = "SELECT * FROM PRODUCTO P WHERE P.CODIGO = '" + codigo + "'";
+        
+        ConexionDB conexion = ConexionDB.getInstancia(); 
+        String consulta = conexion.consulta(SQL_Query_Producto);
+        
+        if(consulta==null){
+            throw new ProductoNotFoundException("No hay ningun producto con ese codigo");
+        }
+                  
+        JSONArray jsonArray = new JSONArray(consulta);
+            
+        JSONObject json = jsonArray.getJSONObject(0);
+            
+        res = json.toString();
+        System.out.println(res);
+        return res;
+    }
+
+    static void actualizaProducto(String codigo, short existencias) {
+        String SQL_Update_Producto = "UPDATE PRODUCTO P SET EXISTENCIAS = " + existencias + " WHERE CODIGO = '" + codigo + "'";
+        //System.out.println(SQL_Update_Producto);
+        
+        ConexionDB conexion = ConexionDB.getInstancia(); 
+        conexion.update(SQL_Update_Producto);
     }
 }

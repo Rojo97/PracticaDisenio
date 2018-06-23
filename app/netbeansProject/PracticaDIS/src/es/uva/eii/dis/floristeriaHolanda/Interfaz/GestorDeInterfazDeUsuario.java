@@ -5,6 +5,7 @@
  */
 package es.uva.eii.dis.floristeriaHolanda.Interfaz;
 
+import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.RegistrarVentaDirecta.VistaRegistrarVentaDirecta;
 import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.login.VistaIdentificarse;
 import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.opciones.VistaOpcionesAdministrativo;
 import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.opciones.VistaOpcionesDependiente;
@@ -107,6 +108,19 @@ public class GestorDeInterfazDeUsuario {
         currentState.dispose();
         
         currentState = new VistaIdentificarse();
+        currentState.setVisible(true);
+    }
+    
+    
+    public void CancelaResgistrarVentaDirecta() {
+        empleadoIdentificado();
+        
+    }
+
+    public void registrarVentaDirecta() {
+        currentState.dispose();
+        
+        currentState = new VistaRegistrarVentaDirecta();
         currentState.setVisible(true);
     }
 

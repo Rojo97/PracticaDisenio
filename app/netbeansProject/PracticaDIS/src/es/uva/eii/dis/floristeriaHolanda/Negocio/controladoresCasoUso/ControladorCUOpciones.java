@@ -27,4 +27,9 @@ public class ControladorCUOpciones {
         GestorDeInterfazDeUsuario stateMachine = Main.getStateMachineLogin();
         stateMachine.cerrarSesion();
     }
+
+    public void registrarVentaDirecta() {
+       GestorDeInterfazDeUsuario stateMachine = Main.getStateMachineLogin();
+       stateMachine.registrarVentaDirecta();
+    }
 }

@@ -49,6 +49,11 @@ public class VistaOpcionesDependiente extends javax.swing.JFrame {
         botonVentaDirecta.setText("Registrar Venta Directa");
         botonVentaDirecta.setMaximumSize(new java.awt.Dimension(200, 32));
         botonVentaDirecta.setPreferredSize(new java.awt.Dimension(200, 32));
+        botonVentaDirecta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonVentaDirectaMouseClicked(evt);
+            }
+        });
 
         botonCerrarSesion.setText("Cerrar Sesion");
         botonCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -96,6 +101,10 @@ public class VistaOpcionesDependiente extends javax.swing.JFrame {
     private void botonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarSesionActionPerformed
         controlador.procesaCerrarSesion();
     }//GEN-LAST:event_botonCerrarSesionActionPerformed
+
+    private void botonVentaDirectaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonVentaDirectaMouseClicked
+        controlador.procesaRegistrarVentaDirecta();
+    }//GEN-LAST:event_botonVentaDirectaMouseClicked
 
     /**
      * @param args the command line arguments

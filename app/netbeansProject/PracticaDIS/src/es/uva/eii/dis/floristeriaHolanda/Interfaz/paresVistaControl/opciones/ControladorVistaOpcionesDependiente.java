@@ -23,4 +23,8 @@ public class ControladorVistaOpcionesDependiente {
     public void procesaCerrarSesion(){
         controladorCU.cerrarSesion();
     }
+
+    void procesaRegistrarVentaDirecta() {
+        controladorCU.registrarVentaDirecta();
+    }
 }
