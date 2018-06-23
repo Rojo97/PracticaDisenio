@@ -118,10 +118,10 @@ public class GestorDeInterfazDeUsuario {
     }
 
     public void registrarVentaDirecta() {
-        currentState.setVisible(false);
         currentState.dispose();
         
         currentState = new VistaRegistrarVentaDirecta();
+        currentState.setVisible(true);
     }
 
     public void estimar(int lote, String planta) {

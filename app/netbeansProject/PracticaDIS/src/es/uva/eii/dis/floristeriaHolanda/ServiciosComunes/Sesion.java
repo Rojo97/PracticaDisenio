@@ -36,4 +36,8 @@ public class Sesion {
     public Empleado getEmpleado(){
         return empleado;
     }
+
+    public String getEmpleadoNIF() {
+        return empleado.getNif();
+    }
 }

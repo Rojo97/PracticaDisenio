@@ -9,6 +9,7 @@ import es.uva.eii.dis.floristeriaHolanda.Persistencia.FachadaPersistencia;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.FlorNotFoundException;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.FloresEnLoteNotFoundException;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PlantNotFoundException;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.ProductoNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import org.json.JSONArray;
@@ -46,8 +47,10 @@ public class Producto {
         
     }
 
-    public static Producto getProductoPorCodigo(String codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static Producto getProductoPorCodigo(String codigo) throws ProductoNotFoundException{
+        String res = FachadaPersistencia.getProductoPorCodigo(codigo);
+        Producto producto = new Producto(res);
+        return producto;
     }
     
     private String codigo;
@@ -62,6 +65,7 @@ public class Producto {
     private String plataDeLaFlor;
     private String subtipo;
     private ArrayList<Lote> lotes;
+    private float getPrecioVenta;
     
     public Producto(String JSONObjectString){
          JSONObject json = new JSONObject(JSONObjectString);
@@ -109,5 +113,21 @@ public class Producto {
 
     public String getCodigo() {
         return codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public float getPrecioVenta() {
+        return precioDeVenta;
+    }
+
+    public void restaCantidad(int cantidad) {
+        this.existencias -= cantidad;
+    }
+
+    public void guardaCantidad() {
+        FachadaPersistencia.actualizaProducto(codigo, existencias);
     }
 }
