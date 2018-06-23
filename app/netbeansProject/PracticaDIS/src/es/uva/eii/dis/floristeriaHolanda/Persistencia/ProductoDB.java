@@ -5,80 +5,59 @@
  */
 package es.uva.eii.dis.floristeriaHolanda.Persistencia;
 
-import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.ProductoNotFoundException;
-import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.ProductoNotFoundException;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.FlorNotFoundException;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PlantNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
  *
- * @author super
+ * @author rojo
  */
 public class ProductoDB {
-
-    static String getProductoPorCodigo(String codigo) throws ProductoNotFoundException{
-        String producto = null;
-     
-        String SQL_Query_Producto_Con_Codigo = "SELECT * FROM Producto P WHERE P.CODIGO = '" + codigo + "'";
-        String SQL_Query_Nombre = "SELECT P.NOMBRE FROM Producto P WHERE P.CODIGO = '" + codigo + "'";
-        String SQL_Query_Descripcion = "SELECT P.DESCRIPCION FROM Producto P WHERE P.CODIGO = '" + codigo + "'";
-        String SQL_Query_Existencias = "SELECT P.EXISTENCIAS FROM Producto P WHERE P.CODIGO = '" + codigo + "'";
-        String SQL_Query_Cantidad_Necesaria = "SELECT P.CANTIDADNECESARIA FROM Producto P WHERE P.CODIGO = '" + codigo + "'";
-        String SQL_Query_Precio_De_Venta = "SELECT P.PRECIODEVENTA FROM Producto P WHERE P.CODIGO = '" + codigo + "'";
-        String SQL_Query_Precio_Compra = "SELECT P.PRECIOCOMPRA FROM Producto P WHERE P.CODIGO = '" + codigo + "'";
-        String SQL_Query_Dias_Para_Entrega_Del_Proveedor = "SELECT P.DIASPARAENTREGADELPROVEEDOR FROM Producto P WHERE P.CODIGO = '" + codigo + "'";
-        String SQL_Query_Tipo_De_Producto_Auxiliar = "SELECT P.TIPODEPRODUCTOAUXILIAR FROM Producto P WHERE P.CODIGO = '" + codigo + "'";
-        String SQL_Query_Subtipo = "SELECT P.SUBTIPO FROM Producto P WHERE P.CODIGO = '" + codigo + "'";
-        String SQL_Query_Planta_De_La_Flor = "SELECT P.PLANTADELAFLOR FROM Producto P WHERE P.CODIGO = '" + codigo + "'";
+    public static String getPlantaPorNombre(String nombre) throws PlantNotFoundException{
         
+        String res = null;
+        
+        String SQL_Query_Planta = "SELECT * FROM PRODUCTO P WHERE P.NOMBRE = '" + nombre + "' AND P.SUBTIPO = 'planta'";
+        String SQL_Query_Lotes = "SELECT * FROM LOTE L INNER JOIN PRODUCTO P ON (L.PLANTA = P.CODIGO) WHERE P.NOMBRE = '" + nombre + "' AND P.SUBTIPO = 'planta'";
         
         ConexionDB conexion = ConexionDB.getInstancia(); 
-        
-        String consulta = conexion.consulta(SQL_Query_Producto_Con_Codigo);
+        String consulta = conexion.consulta(SQL_Query_Planta);
         
         if(consulta==null){
-            throw new ProductoNotFoundException("No hay ningun producto con ese codigo");
+            throw new PlantNotFoundException("No hay ninguna Planta con ese Nombre");
         }
-        
+                  
         JSONArray jsonArray = new JSONArray(consulta);
             
-        JSONObject jsonE = jsonArray.getJSONObject(0);
-        
-        jsonE.put("codigo", codigo);
+        JSONObject json = jsonArray.getJSONObject(0);
             
-        consulta = conexion.consulta(SQL_Query_Nombre);
-        jsonE.put("nombre", consulta);
-            
-        consulta = conexion.consulta(SQL_Query_Descripcion);
-        jsonE.put("descripcion", consulta);
-        
-        consulta = conexion.consulta(SQL_Query_Existencias);
-        jsonE.put("existencias", consulta);
-        
-        consulta = conexion.consulta(SQL_Query_Cantidad_Necesaria);
-        jsonE.put("cantidadNecesaria", consulta);
-        
-        consulta = conexion.consulta(SQL_Query_Precio_De_Venta);
-        jsonE.put("precioDeVenta", consulta);
-        
-        consulta = conexion.consulta(SQL_Query_Precio_Compra);
-        jsonE.put("precioCompra", consulta);
-        
-        consulta = conexion.consulta(SQL_Query_Dias_Para_Entrega_Del_Proveedor);
-        jsonE.put("diasParaEntregaDelProveedor", consulta);
-        
-        consulta = conexion.consulta(SQL_Query_Tipo_De_Producto_Auxiliar);
-        jsonE.put("tipoDeProductoAuxiliar", consulta);
-        
-        consulta = conexion.consulta(SQL_Query_Subtipo);
-        jsonE.put("subtipo", consulta);
-        
-        consulta = conexion.consulta(SQL_Query_Planta_De_La_Flor);
-        jsonE.put("plantaDeLaFlor", consulta);
-        
-        producto = jsonE.toString();
-        
-        return producto;
+        consulta = conexion.consulta(SQL_Query_Lotes);
+        JSONArray lotes = new JSONArray(consulta);
+        json.put("lotes", lotes);
+        res = json.toString();
+        System.out.println(res);
+        return res;
     }
-    
+
+    static String getFlorPorPlanta(String planta) throws FlorNotFoundException {
+        String res = null;
+        
+        String SQL_Query_Flor = "SELECT * FROM PRODUCTO P WHERE P.PLANTADELAFLOR = '" + planta + "' AND P.SUBTIPO = 'flor'";
+        
+        ConexionDB conexion = ConexionDB.getInstancia(); 
+        String consulta = conexion.consulta(SQL_Query_Flor);
+        
+        if(consulta==null){
+            throw new FlorNotFoundException("No hay ninguna Flor de esa planta");
+        }
+                  
+        JSONArray jsonArray = new JSONArray(consulta);
+            
+        JSONObject json = jsonArray.getJSONObject(0);
+        res = json.toString();
+        System.out.println(res);
+        return res;
+    }
 }

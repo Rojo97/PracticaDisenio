@@ -39,7 +39,12 @@ public class ConexionDB {
         if(conexion!=null){
             return conexion;
         }else{
+<<<<<<< HEAD
             return new ConexionDB();
+=======
+            conexion = new ConexionDB();
+            return conexion;
+>>>>>>> 05c331477f0a7af753543fea0e1105ef97c91278
         }
     }
     
@@ -65,6 +70,19 @@ public class ConexionDB {
         
         return res;       
     }
+<<<<<<< HEAD
+=======
+    
+    public void update(String SQL_Update) {
+        try{
+            Statement update = conn.createStatement();
+            int execute = update.executeUpdate(SQL_Update);
+            System.out.println(execute);
+        }catch(SQLException e){
+            System.err.println("thats bad: "+e.getMessage());
+        }
+    }
+>>>>>>> 05c331477f0a7af753543fea0e1105ef97c91278
         
     
     public PreparedStatement getPreparedStatement(String s){

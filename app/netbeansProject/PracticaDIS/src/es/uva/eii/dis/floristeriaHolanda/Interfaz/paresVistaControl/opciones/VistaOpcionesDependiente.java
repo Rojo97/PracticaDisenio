@@ -146,7 +146,7 @@ public class VistaOpcionesDependiente extends javax.swing.JFrame {
         
         Empleado e = sesion.getEmpleado();
         
-        labelNombreUsuario.setText("Prueba"/*e.getNombre()*/);
+        labelNombreUsuario.setText(e.getNombre());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

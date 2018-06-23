@@ -96,6 +96,13 @@ public class GestorDeInterfazDeUsuario {
         currentState.setVisible(true);
     }
     
+    public void modificarLote(){
+        currentState.dispose();
+        
+        currentState = new VistaModificarLote();
+        currentState.setVisible(true); 
+    }
+    
     public void cerrarSesion() {
                 
         currentState.dispose();
@@ -115,6 +122,19 @@ public class GestorDeInterfazDeUsuario {
         currentState.dispose();
         
         currentState = new VistaRegistrarVentaDirecta();
+
+    public void estimar(int lote, String planta) {
+        currentState.hide();
+        lastState = currentState;
+        
+        currentState = new VistaEstimarFlores(lote, planta);
+        currentState.setVisible(true);
+    }
+
+    public void volver() {
+        currentState.dispose();
+        currentState = lastState;
+        lastState = null;
         currentState.setVisible(true);
     }
 }
