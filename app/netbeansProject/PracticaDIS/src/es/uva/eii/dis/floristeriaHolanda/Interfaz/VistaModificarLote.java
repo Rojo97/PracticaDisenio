@@ -52,6 +52,7 @@ public class VistaModificarLote extends javax.swing.JFrame {
         error = new javax.swing.JLabel();
         buscar = new javax.swing.JButton();
         introducir = new javax.swing.JButton();
+        noConfirmar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,7 +72,7 @@ public class VistaModificarLote extends javax.swing.JFrame {
 
         selectorEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "pendienteDePlantar", "plantado", "enProduccion", "finDeVidaUtil", "eliminado" }));
 
-        cancelar.setText("Cancelar");
+        cancelar.setText("CancelarOperacion");
 
         confirmar.setText("Confirmar");
 
@@ -89,14 +90,28 @@ public class VistaModificarLote extends javax.swing.JFrame {
         });
 
         introducir.setText("Introducir");
+        introducir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                introducirActionPerformed(evt);
+            }
+        });
+
+        noConfirmar.setText("No confirmar");
+        noConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                noConfirmarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(noConfirmar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -154,7 +169,8 @@ public class VistaModificarLote extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelar)
-                    .addComponent(confirmar)))
+                    .addComponent(confirmar)
+                    .addComponent(noConfirmar)))
         );
 
         pack();
@@ -167,6 +183,14 @@ public class VistaModificarLote extends javax.swing.JFrame {
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         controlador.procesaEventoPlanta();
     }//GEN-LAST:event_buscarActionPerformed
+
+    private void introducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_introducirActionPerformed
+        controlador.procesaEventoEstado();
+    }//GEN-LAST:event_introducirActionPerformed
+
+    private void noConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noConfirmarActionPerformed
+
+    }//GEN-LAST:event_noConfirmarActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -180,6 +204,7 @@ public class VistaModificarLote extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton noConfirmar;
     private javax.swing.JTextField planta;
     private javax.swing.JComboBox<String> selectorEstado;
     private javax.swing.JComboBox<String> selectorLotes;
@@ -189,20 +214,52 @@ public class VistaModificarLote extends javax.swing.JFrame {
         return planta.getText();
     }
 
-    void mostrarErrorPlanta() {
+    public void mostrarErrorPlanta() {
         errorPlanta.setVisible(true);
     }
 
-    void addLote(String[] lote) {
+    public void addLote(String[] lote) {
         selectorLotes.addItem("ID:" + lote[0]+ " Fecha:" + lote[1] + " Estado:" + lote[2]);
     }
 
-    void muestraLotes() {
+    public void muestraLotes() {
         buscar.hide();
         selectorLotes.setVisible(true);
         jLabel2.setVisible(true);
         jLabel3.setVisible(true);
         selectorEstado.setVisible(true);
+        introducir.setVisible(true);
+    }
+
+    public int getLote() {
+        String lote = (String) selectorLotes.getSelectedItem();
+        String[] parte = lote.split(" ");
+        lote = parte[0];
+        parte = lote.split(":");
+        lote = parte [1];
+        int id = Integer.parseInt(lote);
+        System.out.println("id seleccionado = "+id);
+        return id;
+        
+    }
+
+    public String getEstado() {
+        return (String) selectorEstado.getSelectedItem();
+    }
+
+    public void errorEstado() {
+        errorLote.setVisible(true);
+    }
+
+    public void pedirConfirmacion() {
+        errorLote.hide();
+        confirmar.setVisible(true);
+        noConfirmar.setVisible(true);
+    }
+
+    public void muestraIntroducir() {
+        confirmar.hide();
+        noConfirmar.hide();
         introducir.setVisible(true);
     }
 }

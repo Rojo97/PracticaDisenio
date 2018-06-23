@@ -24,8 +24,10 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="cancelar" min="-2" pref="95" max="-2" attributes="0"/>
+              <Component id="cancelar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="noConfirmar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="confirmar" min="-2" pref="95" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
@@ -97,6 +99,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="cancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="confirmar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="noConfirmar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -151,7 +154,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="cancelar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cancelar"/>
+        <Property name="text" type="java.lang.String" value="CancelarOperacion"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="confirmar">
@@ -186,6 +189,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Introducir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="introducirActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="noConfirmar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="No confirmar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="noConfirmarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -61,4 +61,29 @@ public class ControladorCUModificarLote {
         }
         return datosLotes;
     }
+
+    public boolean compruebaEstado(int id, String estado) {
+        boolean posible = false;
+        ArrayList<Lote> lotes = planta.getLotes();
+        Lote lote = getLote(id, lotes);
+        if(lote == null){
+            return false;
+        }
+        posible = lote.compruebaCambio(estado);
+        return posible;
+    }
+
+    private Lote getLote(int id, ArrayList<Lote> lotes) {
+        Iterator it = lotes.iterator();
+        boolean encontrado = false;
+        Lote lote = null;
+        while(it.hasNext() && encontrado == false ){
+            lote = (Lote) it.next();
+            if(Integer.parseInt(lote.getId()) == id){
+                encontrado = true;
+            }
+        }
+        return lote;
+    }
+    
 }

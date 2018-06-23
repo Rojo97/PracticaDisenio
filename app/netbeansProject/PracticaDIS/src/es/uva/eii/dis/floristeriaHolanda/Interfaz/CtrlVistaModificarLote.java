@@ -41,6 +41,7 @@ public class CtrlVistaModificarLote {
                     vista.addLote(lote);
                 }
                 vista.muestraLotes();
+                vista.muestraIntroducir();
             }
             } catch(PlantNotFoundException exception){
                vista.mostrarErrorPlanta();
@@ -48,4 +49,16 @@ public class CtrlVistaModificarLote {
         }
         
     }
+
+    public void procesaEventoEstado() {
+        int id = vista.getLote();
+        String estado = vista.getEstado();
+        boolean posible = controladorCU.compruebaEstado(id, estado);
+        if(posible == false){
+            vista.errorEstado();
+        } else {
+            vista.pedirConfirmacion();
+        }
+    }
+
 }

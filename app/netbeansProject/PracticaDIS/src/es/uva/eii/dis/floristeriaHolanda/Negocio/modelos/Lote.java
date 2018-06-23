@@ -46,4 +46,18 @@ public class Lote {
     public String getFecha() {
         return fechadeCreacion.toString();
     }
+
+    public boolean compruebaCambio(String estado) {
+        int estadotest = 0;
+        for(int i= 0; i<estados.length; i++){
+            if(estados[i].toLowerCase().equals(estado.toLowerCase())){
+                estadotest = i;
+            }
+        }
+        if(estadotest >= this.estado){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
