@@ -6,6 +6,8 @@
 package es.uva.eii.dis.floristeriaHolanda.Negocio.modelos;
 
 import es.uva.eii.dis.floristeriaHolanda.Persistencia.FachadaPersistencia;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.FlorNotFoundException;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.FloresEnLoteNotFoundException;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PlantNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +20,30 @@ import org.json.JSONObject;
  * @author rojo
  */
 public class Producto {
+
+    public static Producto getPlantaPorNombre(String nombre) throws PlantNotFoundException{
+        String res = FachadaPersistencia.getPlantaPorNombre(nombre);
+        Producto planta = new Producto(res);
+        return planta;
+    }
+        
+    public static Producto buscaFlorPorPlanta(String planta) throws FlorNotFoundException {
+        String res = FachadaPersistencia.getFlorPorPlanta(planta);
+        Producto flor = new Producto(res);
+        return flor;
+    }
+
+    public static FloresEnLote getFloresEnLote(int lote, String codigo) {
+        try{
+            String res = FachadaPersistencia.getFloresEnLote(lote, codigo);
+            FloresEnLote flores = new FloresEnLote(res);
+        }catch(FloresEnLoteNotFoundException exception){
+            FloresEnLote flores = new FloresEnLote(lote, codigo);
+        }
+        return flores;
+        
+    }
+    
     private String codigo;
     private String nombre;
     private String descripcion;
@@ -64,11 +90,6 @@ public class Producto {
         
     }
     
-    public static Producto getPlantaPorNombre(String nombre) throws PlantNotFoundException{
-        String res = FachadaPersistencia.getPlantaPorNombre(nombre);
-        Producto planta = new Producto(res);
-        return planta;
-    }
 
     public int getExistencias() {
         return (int) existencias;

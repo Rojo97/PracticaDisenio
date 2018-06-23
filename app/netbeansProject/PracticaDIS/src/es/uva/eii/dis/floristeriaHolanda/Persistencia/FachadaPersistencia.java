@@ -5,6 +5,8 @@
  */
 package es.uva.eii.dis.floristeriaHolanda.Persistencia;
 
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.FlorNotFoundException;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.FloresEnLoteNotFoundException;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.UserNotFoundException;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PasswordIncorrectException;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PlantNotFoundException;
@@ -25,5 +27,13 @@ public class FachadaPersistencia {
 
     public static void actualizarLote(int id, String estado) {
         LoteDB.actualizar(id, estado);
+    }
+
+    public static String getFlorPorPlanta(String planta) throws FlorNotFoundException {
+        return ProductoDB.getFlorPorPlanta(planta);
+    }
+
+    public static String getFloresEnLote(int lote, String codigo) throws FloresEnLoteNotFoundException{
+        return FloresEnLoteDB.getFloresEnLote(lote, codigo);
     }
 }

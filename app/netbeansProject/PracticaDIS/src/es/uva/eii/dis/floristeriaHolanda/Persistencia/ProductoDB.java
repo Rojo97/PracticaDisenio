@@ -5,6 +5,7 @@
  */
 package es.uva.eii.dis.floristeriaHolanda.Persistencia;
 
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.FlorNotFoundException;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PlantNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,6 +36,26 @@ public class ProductoDB {
         consulta = conexion.consulta(SQL_Query_Lotes);
         JSONArray lotes = new JSONArray(consulta);
         json.put("lotes", lotes);
+        res = json.toString();
+        //System.out.println(res);
+        return res;
+    }
+
+    static String getFlorPorPlanta(String planta) throws FlorNotFoundException {
+        String res = null;
+        
+        String SQL_Query_Flor = "SELECT * FROM PRODUCTO P WHERE P.PLANTADELAFLOR = '" + planta + "'";
+        
+        ConexionDB conexion = ConexionDB.getInstancia(); 
+        String consulta = conexion.consulta(SQL_Query_Flor);
+        
+        if(consulta==null){
+            throw new FlorNotFoundException("No hay ninguna Flor de esa planta");
+        }
+                  
+        JSONArray jsonArray = new JSONArray(consulta);
+            
+        JSONObject json = jsonArray.getJSONObject(0);
         res = json.toString();
         //System.out.println(res);
         return res;

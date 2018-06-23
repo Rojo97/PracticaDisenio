@@ -113,6 +113,7 @@ public class GestorDeInterfazDeUsuario {
     public void estimar(int lote, String planta) {
         currentState.hide();
         lastState = currentState;
-        currentState = new VistaEstimarFlores();
+        
+        currentState = new VistaEstimarFlores(lote, planta);
     }
 }
