@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/rojo/Documentos/GITrepos/PracticaDesing/app/netbeansProject/PracticaDIS/src/es/uva/eii/dis/floristeriaHolanda/Negocio/controladoresCasoUso/ControladorCUModificarLote.java</file>
+            <file>file:/home/rojo/Documentos/GITrepos/PracticaDesing/app/netbeansProject/PracticaDIS/src/es/uva/eii/dis/floristeriaHolanda/Persistencia/FloresEnLoteDB.java</file>
+            <file>file:/home/rojo/Documentos/GITrepos/PracticaDesing/app/netbeansProject/PracticaDIS/src/es/uva/eii/dis/floristeriaHolanda/Persistencia/ConexionDB.java</file>
+            <file>file:/home/rojo/Documentos/GITrepos/PracticaDesing/app/netbeansProject/PracticaDIS/src/es/uva/eii/dis/floristeriaHolanda/Interfaz/VistaModificarLote.java</file>
+            <file>file:/home/rojo/Documentos/GITrepos/PracticaDesing/app/netbeansProject/PracticaDIS/src/es/uva/eii/dis/floristeriaHolanda/Persistencia/FachadaPersistencia.java</file>
+            <file>file:/home/rojo/Documentos/GITrepos/PracticaDesing/app/netbeansProject/PracticaDIS/src/es/uva/eii/dis/floristeriaHolanda/Interfaz/GestorDeInterfazDeUsuario.java</file>
+            <file>file:/home/rojo/Documentos/GITrepos/PracticaDesing/app/netbeansProject/PracticaDIS/src/es/uva/eii/dis/floristeriaHolanda/Negocio/modelos/Producto.java</file>
+            <file>file:/home/rojo/Documentos/GITrepos/PracticaDesing/app/netbeansProject/PracticaDIS/src/es/uva/eii/dis/floristeriaHolanda/Interfaz/CtrlVistaEstimarFlores.java</file>
+            <file>file:/home/rojo/Documentos/GITrepos/PracticaDesing/app/netbeansProject/PracticaDIS/src/es/uva/eii/dis/floristeriaHolanda/Persistencia/LoteDB.java</file>
+            <file>file:/home/rojo/Documentos/GITrepos/PracticaDesing/app/netbeansProject/PracticaDIS/src/es/uva/eii/dis/floristeriaHolanda/Negocio/modelos/FloresEnLote.java</file>
+            <file>file:/home/rojo/Documentos/GITrepos/PracticaDesing/app/netbeansProject/PracticaDIS/src/es/uva/eii/dis/floristeriaHolanda/Persistencia/ProductoDB.java</file>
+            <file>file:/home/rojo/Documentos/GITrepos/PracticaDesing/app/netbeansProject/PracticaDIS/src/es/uva/eii/dis/floristeriaHolanda/Negocio/controladoresCasoUso/ControladorCUEstimarFlores.java</file>
+            <file>file:/home/rojo/Documentos/GITrepos/PracticaDesing/app/netbeansProject/PracticaDIS/src/es/uva/eii/dis/floristeriaHolanda/Interfaz/VistaEstimarFlores.java</file>
+            <file>file:/home/rojo/Documentos/GITrepos/PracticaDesing/app/netbeansProject/PracticaDIS/src/es/uva/eii/dis/floristeriaHolanda/Interfaz/CtrlVistaModificarLote.java</file>
+        </group>
+    </open-files>
+</project-private>
