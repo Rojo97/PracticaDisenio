@@ -5,6 +5,7 @@
  */
 package es.uva.eii.dis.floristeriaHolanda.Interfaz;
 
+import es.uva.eii.dis.floristeriaHolanda.Negocio.controladoresCasoUso.ControladorCUEstimarFlores;
 import es.uva.eii.dis.floristeriaHolanda.Negocio.controladoresCasoUso.ControladorCUModificarLote;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PlantNotFoundException;
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ import java.util.Iterator;
 public class CtrlVistaModificarLote {
     private VistaModificarLote vista;
     private ControladorCUModificarLote controladorCU;
+    private int id;
+    private String estado;
     
     public CtrlVistaModificarLote(VistaModificarLote vista){
         this.vista = vista;
@@ -51,14 +54,38 @@ public class CtrlVistaModificarLote {
     }
 
     public void procesaEventoEstado() {
-        int id = vista.getLote();
-        String estado = vista.getEstado();
+        id = vista.getLote();
+        estado = vista.getEstado();
         boolean posible = controladorCU.compruebaEstado(id, estado);
         if(posible == false){
             vista.errorEstado();
         } else {
             vista.pedirConfirmacion();
+            if(estado.equals("enProduccion")){
+                vista.muestraEstimar();
+            }
         }
+    }
+
+    public void confirmar() {
+        controladorCU.guardarCambios(id, estado);
+        System.out.println("Cambios guardados");
+        controladorCU.salir();
+    }
+
+    public void noConfirma() {
+        vista.muestraIntroducir();
+    }
+
+    public void cancela() {
+        controladorCU.salir();
+    }
+
+
+    void procesaEventoEstim() {
+        String planta = controladorCU.getCodigoPlanta();
+        int lote = vista.getLote();
+        controladorCU.estimar(lote, planta);
     }
 
 }

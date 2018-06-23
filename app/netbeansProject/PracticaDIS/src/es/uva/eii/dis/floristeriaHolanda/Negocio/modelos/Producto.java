@@ -77,4 +77,8 @@ public class Producto {
     public ArrayList<Lote> getLotes() {
         return (ArrayList<Lote>) lotes.clone();
     }
+
+    public String getCodigo() {
+        return codigo;
+    }
 }

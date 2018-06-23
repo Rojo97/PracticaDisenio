@@ -109,4 +109,10 @@ public class GestorDeInterfazDeUsuario {
         currentState = new VistaIdentificarse();
         currentState.setVisible(true);
     }
+
+    public void estimar(int lote, String planta) {
+        currentState.hide();
+        lastState = currentState;
+        currentState = new VistaEstimarFlores();
+    }
 }

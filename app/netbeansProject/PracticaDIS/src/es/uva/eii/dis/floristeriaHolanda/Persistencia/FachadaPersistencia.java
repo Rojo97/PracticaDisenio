@@ -22,4 +22,8 @@ public class FachadaPersistencia {
     public static String getPlantaPorNombre(String nombre) throws PlantNotFoundException{
         return ProductoDB.getPlantaPorNombre(nombre);
     }
+
+    public static void actualizarLote(int id, String estado) {
+        LoteDB.actualizar(id, estado);
+    }
 }

@@ -5,8 +5,11 @@
  */
 package es.uva.eii.dis.floristeriaHolanda.Negocio.controladoresCasoUso;
 
+import es.uva.eii.dis.floristeriaHolanda.Interfaz.GestorDeInterfazDeUsuario;
+import es.uva.eii.dis.floristeriaHolanda.Main.Main;
 import es.uva.eii.dis.floristeriaHolanda.Negocio.modelos.Lote;
 import es.uva.eii.dis.floristeriaHolanda.Negocio.modelos.Producto;
+import es.uva.eii.dis.floristeriaHolanda.Persistencia.FachadaPersistencia;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PlantNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -84,6 +87,24 @@ public class ControladorCUModificarLote {
             }
         }
         return lote;
+    }
+
+    public void guardarCambios(int id, String estado) {
+        FachadaPersistencia.actualizarLote(id, estado);
+    }
+
+    public void salir() {
+        GestorDeInterfazDeUsuario stateMachine = Main.getStateMachineLogin();
+        stateMachine.empleadoIdentificado();
+    }
+
+    public String getCodigoPlanta() {
+        return planta.getCodigo();
+    }
+
+    public void estimar(int lote, String planta) {
+        GestorDeInterfazDeUsuario stateMachine = Main.getStateMachineLogin();
+        stateMachine.estimar(lote, planta);
     }
     
 }

@@ -21,12 +21,13 @@ public class VistaModificarLote extends javax.swing.JFrame {
         jLabel2.hide();
         errorPlanta.hide();
         confirmar.hide();
-        error.hide();
+        estimAviso.hide();
         errorLote.hide();
         errorPlanta.hide();
         jLabel3.hide();
         selectorEstado.hide();
         introducir.hide();
+        estimar.hide();
         controlador = new CtrlVistaModificarLote(this);
     }
 
@@ -49,10 +50,11 @@ public class VistaModificarLote extends javax.swing.JFrame {
         confirmar = new javax.swing.JButton();
         errorPlanta = new javax.swing.JLabel();
         errorLote = new javax.swing.JLabel();
-        error = new javax.swing.JLabel();
+        estimAviso = new javax.swing.JLabel();
         buscar = new javax.swing.JButton();
         introducir = new javax.swing.JButton();
         noConfirmar = new javax.swing.JButton();
+        estimar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,14 +75,24 @@ public class VistaModificarLote extends javax.swing.JFrame {
         selectorEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "pendienteDePlantar", "plantado", "enProduccion", "finDeVidaUtil", "eliminado" }));
 
         cancelar.setText("CancelarOperacion");
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarActionPerformed(evt);
+            }
+        });
 
         confirmar.setText("Confirmar");
+        confirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmarActionPerformed(evt);
+            }
+        });
 
         errorPlanta.setText("* No hay lotes asociados a la planta");
 
-        errorLote.setText("* Todos los lotes estan eliminados");
+        errorLote.setText("* El estado introducido no es valido");
 
-        error.setText("* Errores detectados");
+        estimAviso.setText("Puede estimar las flores");
 
         buscar.setText("Buscar");
         buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -103,6 +115,13 @@ public class VistaModificarLote extends javax.swing.JFrame {
             }
         });
 
+        estimar.setText("Estimar flores");
+        estimar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estimarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,29 +136,33 @@ public class VistaModificarLote extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(selectorEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3)
-                            .addComponent(selectorLotes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(planta)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(errorPlanta))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(errorLote)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(buscar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(selectorEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(selectorLotes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(planta)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(errorPlanta))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(errorLote)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(buscar)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(error)
+                        .addComponent(estimAviso)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(introducir)))
-                .addContainerGap())
+                        .addComponent(estimar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(introducir, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,8 +187,9 @@ public class VistaModificarLote extends javax.swing.JFrame {
                 .addComponent(selectorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(error)
-                    .addComponent(introducir))
+                    .addComponent(estimAviso)
+                    .addComponent(introducir)
+                    .addComponent(estimar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelar)
@@ -189,17 +213,30 @@ public class VistaModificarLote extends javax.swing.JFrame {
     }//GEN-LAST:event_introducirActionPerformed
 
     private void noConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noConfirmarActionPerformed
-
+        controlador.noConfirma();
     }//GEN-LAST:event_noConfirmarActionPerformed
+
+    private void estimarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estimarActionPerformed
+        controlador.procesaEventoEstim();
+    }//GEN-LAST:event_estimarActionPerformed
+
+    private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
+        controlador.confirmar();
+    }//GEN-LAST:event_confirmarActionPerformed
+
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+        controlador.cancela();
+    }//GEN-LAST:event_cancelarActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscar;
     private javax.swing.JButton cancelar;
     private javax.swing.JButton confirmar;
-    private javax.swing.JLabel error;
     private javax.swing.JLabel errorLote;
     private javax.swing.JLabel errorPlanta;
+    private javax.swing.JLabel estimAviso;
+    private javax.swing.JButton estimar;
     private javax.swing.JButton introducir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -252,14 +289,22 @@ public class VistaModificarLote extends javax.swing.JFrame {
     }
 
     public void pedirConfirmacion() {
+        introducir.hide();
         errorLote.hide();
         confirmar.setVisible(true);
         noConfirmar.setVisible(true);
     }
 
     public void muestraIntroducir() {
+        estimAviso.hide();
+        estimar.hide();
         confirmar.hide();
         noConfirmar.hide();
         introducir.setVisible(true);
+    }
+
+    public void muestraEstimar() {
+        estimAviso.setVisible(true);
+        estimar.setVisible(true);
     }
 }
