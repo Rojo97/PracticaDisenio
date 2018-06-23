@@ -37,7 +37,7 @@ public class ControladorVistaRegistrarVentaDirecta {
             if(codigo.equals("")||codigo.equals("Código del producto")){
                 vista.muestraMensajeError("ERROR_PRODUCTONOENCONTRADO");
             }else{
-                Producto producto = controladorCU.buscaProducto(codigo);
+                //Producto producto = controladorCU.buscaProducto(codigo);
             }
             
             

@@ -45,6 +45,10 @@ public class Producto {
         return flores;
         
     }
+
+    public static Producto getProductoPorCodigo(String codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     private String codigo;
     private String nombre;

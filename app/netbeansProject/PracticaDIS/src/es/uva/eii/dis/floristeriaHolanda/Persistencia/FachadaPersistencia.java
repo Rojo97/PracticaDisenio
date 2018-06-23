@@ -10,6 +10,7 @@ import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.FloresEnLoteNotFoundEx
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.UserNotFoundException;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PasswordIncorrectException;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PlantNotFoundException;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.ProductoNotFoundException;
 
 /**
  *
