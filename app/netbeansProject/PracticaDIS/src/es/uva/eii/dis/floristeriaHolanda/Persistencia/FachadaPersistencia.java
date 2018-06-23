@@ -36,4 +36,8 @@ public class FachadaPersistencia {
     public static String getFloresEnLote(int lote, String codigo) throws FloresEnLoteNotFoundException{
         return FloresEnLoteDB.getFloresEnLote(lote, codigo);
     }
+
+    public static void actualizaEstimacion(int cantidad, String flor, int lote, boolean nuevo) {
+        FloresEnLoteDB.guardar(cantidad, flor, lote, nuevo);
+    }
 }

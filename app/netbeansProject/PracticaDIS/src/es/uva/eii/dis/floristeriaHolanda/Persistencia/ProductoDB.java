@@ -37,14 +37,14 @@ public class ProductoDB {
         JSONArray lotes = new JSONArray(consulta);
         json.put("lotes", lotes);
         res = json.toString();
-        //System.out.println(res);
+        System.out.println(res);
         return res;
     }
 
     static String getFlorPorPlanta(String planta) throws FlorNotFoundException {
         String res = null;
         
-        String SQL_Query_Flor = "SELECT * FROM PRODUCTO P WHERE P.PLANTADELAFLOR = '" + planta + "'";
+        String SQL_Query_Flor = "SELECT * FROM PRODUCTO P WHERE P.PLANTADELAFLOR = '" + planta + "' AND P.SUBTIPO = 'flor'";
         
         ConexionDB conexion = ConexionDB.getInstancia(); 
         String consulta = conexion.consulta(SQL_Query_Flor);
@@ -57,7 +57,7 @@ public class ProductoDB {
             
         JSONObject json = jsonArray.getJSONObject(0);
         res = json.toString();
-        //System.out.println(res);
+        System.out.println(res);
         return res;
     }
 }

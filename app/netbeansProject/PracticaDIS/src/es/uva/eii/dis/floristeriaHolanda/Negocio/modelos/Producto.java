@@ -10,9 +10,9 @@ import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.FlorNotFoundException;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.FloresEnLoteNotFoundException;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.PlantNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -34,11 +34,13 @@ public class Producto {
     }
 
     public static FloresEnLote getFloresEnLote(int lote, String codigo) {
+        FloresEnLote flores;
         try{
             String res = FachadaPersistencia.getFloresEnLote(lote, codigo);
-            FloresEnLote flores = new FloresEnLote(res);
+            flores = new FloresEnLote(res);
+            System.out.println(res);
         }catch(FloresEnLoteNotFoundException exception){
-            FloresEnLote flores = new FloresEnLote(lote, codigo);
+            flores = new FloresEnLote(lote, codigo);
         }
         return flores;
         
@@ -71,6 +73,7 @@ public class Producto {
             precioDeVenta = json.getFloat("PRECIODEVENTA");
             precioCompra = json.getFloat("PRECIOCOMPRA");
             diasParaEntregaDelProveedor = (short) json.getInt("DIASPARAENTREGADELPROVEEDOR");
+            try{
             JSONArray lotesjson = json.getJSONArray("lotes");
             lotes = new ArrayList<>();
             Iterator it = lotesjson.iterator();
@@ -83,11 +86,12 @@ public class Producto {
                     lotes.add(lote);
                 
                 }catch(Exception e){
-                    System.err.println(e.getStackTrace());
+                    System.out.println(e.getStackTrace());
                 }
             }
+            }catch(JSONException e){
         }
-        
+        } 
     }
     
 

@@ -15,6 +15,7 @@ public class FloresEnLote {
     private int cantidad;
     private int lote;
     private String flor;
+    private boolean nuevo;
 
     FloresEnLote(String res) {
         JSONObject json = new JSONObject(res);
@@ -22,12 +23,30 @@ public class FloresEnLote {
         flor = json.getString("FLOR");
         lote = json.getInt("LOTE");
         cantidad = json.getInt("CANTIDAD");
+        nuevo = false;
     }
 
     FloresEnLote(int lote, String codigo) {
         cantidad = 0;
         this.lote = lote;
         flor = codigo;
+        nuevo = true;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public String getFlor() {
+        return flor;
+    }
+
+    public int getLote() {
+        return lote;
+    }
+    
+    public boolean getNuevo(){
+        return nuevo;
     }
     
 }

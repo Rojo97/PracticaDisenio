@@ -23,9 +23,26 @@ public class CtrlVistaEstimarFlores {
     void procesaEventoInicio(int lote, String planta) {
         boolean correcto = controladorCU.compruebaFlor(planta);
         if(correcto == false){
-           // vista.errorNoHayFlor();
+           vista.errorNoHayFlor();
         }else{
             int estim = controladorCU.getEstimacion(lote);
+            vista.muestraEstim(estim);
         }
+    }
+
+    void procesaEventoCantidad() {
+        int cantidad = vista.getCantidad();
+        boolean correcto = false;
+        if(cantidad > 0) correcto = true;
+        if(correcto == false){
+            vista.errorCantidad();
+        }else{
+            controladorCU.actualizarCantidad(cantidad);
+            controladorCU.volver();
+        }
+    }
+
+    void volver() {
+        controladorCU.volver();
     }
 }

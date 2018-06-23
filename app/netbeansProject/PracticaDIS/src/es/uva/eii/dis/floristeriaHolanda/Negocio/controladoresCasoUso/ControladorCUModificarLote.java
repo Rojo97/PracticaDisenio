@@ -56,6 +56,7 @@ public class ControladorCUModificarLote {
             lote = (Lote) i2.next();
             String estado = lote.getEstado();
             if(!estado.equals("Eliminado")){
+                array = new String [3];
                 array[0] = lote.getId();
                 array[1] = lote.getFecha();
                 array[2] = estado;

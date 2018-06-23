@@ -5,8 +5,11 @@
  */
 package es.uva.eii.dis.floristeriaHolanda.Negocio.controladoresCasoUso;
 
+import es.uva.eii.dis.floristeriaHolanda.Interfaz.GestorDeInterfazDeUsuario;
+import es.uva.eii.dis.floristeriaHolanda.Main.Main;
 import es.uva.eii.dis.floristeriaHolanda.Negocio.modelos.FloresEnLote;
 import es.uva.eii.dis.floristeriaHolanda.Negocio.modelos.Producto;
+import es.uva.eii.dis.floristeriaHolanda.Persistencia.FachadaPersistencia;
 import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.FlorNotFoundException;
 
 /**
@@ -15,6 +18,7 @@ import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.FlorNotFoundException;
  */
 public class ControladorCUEstimarFlores {
     private Producto flor;
+    private FloresEnLote nFlores;
     
     public ControladorCUEstimarFlores(){}
 
@@ -29,6 +33,19 @@ public class ControladorCUEstimarFlores {
 
     public int getEstimacion(int lote) {
         String codigo = flor.getCodigo();
-        FloresEnLote nFlores = Producto.getFloresEnLote(lote, codigo);
+        nFlores = Producto.getFloresEnLote(lote, codigo);
+        return nFlores.getCantidad();
+    }
+
+    public void actualizarCantidad(int cantidad) {
+        String florString = nFlores.getFlor();
+        int lote = nFlores.getLote();
+        boolean nuevo = nFlores.getNuevo();
+        FachadaPersistencia.actualizaEstimacion(cantidad, florString, lote, nuevo);
+    }
+
+    public void volver() {
+        GestorDeInterfazDeUsuario stateMachine = Main.getStateMachineLogin();
+        stateMachine.volver();
     }
 }

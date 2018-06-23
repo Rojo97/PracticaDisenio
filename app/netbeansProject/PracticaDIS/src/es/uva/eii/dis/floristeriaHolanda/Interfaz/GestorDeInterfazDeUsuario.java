@@ -115,5 +115,13 @@ public class GestorDeInterfazDeUsuario {
         lastState = currentState;
         
         currentState = new VistaEstimarFlores(lote, planta);
+        currentState.setVisible(true);
+    }
+
+    public void volver() {
+        currentState.dispose();
+        currentState = lastState;
+        lastState = null;
+        currentState.setVisible(true);
     }
 }

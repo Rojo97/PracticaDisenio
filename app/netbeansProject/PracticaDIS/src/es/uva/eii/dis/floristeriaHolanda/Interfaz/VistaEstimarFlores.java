@@ -19,6 +19,7 @@ public class VistaEstimarFlores extends javax.swing.JFrame {
     public VistaEstimarFlores(int lote, String planta) {
         initComponents();
         errorNumero.hide();
+        errorFlores.hide();
         controlador = new CtrlVistaEstimarFlores(this);
         controlador.procesaEventoInicio(lote, planta);
     }
@@ -33,19 +34,17 @@ public class VistaEstimarFlores extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        florTest = new javax.swing.JLabel();
         estimacionText = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         estimacion = new javax.swing.JTextField();
         confirmar = new javax.swing.JButton();
         volver = new javax.swing.JButton();
         errorNumero = new javax.swing.JLabel();
+        errorFlores = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Actualización de la estimación de flores");
-
-        florTest.setText("Flor:");
 
         estimacionText.setText("Estimación actual:");
 
@@ -58,10 +57,22 @@ public class VistaEstimarFlores extends javax.swing.JFrame {
         });
 
         confirmar.setText("Confirmar");
+        confirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmarActionPerformed(evt);
+            }
+        });
 
         volver.setText("Volver");
+        volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volverActionPerformed(evt);
+            }
+        });
 
         errorNumero.setText("*Introduzca un numero entero positivo");
+
+        errorFlores.setText("-La planta Introducida no produce flores");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,16 +88,13 @@ public class VistaEstimarFlores extends javax.swing.JFrame {
                         .addComponent(confirmar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel1)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(florTest)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(estimacionText)))
+                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(errorNumero)))
+                                .addComponent(errorNumero))
+                            .addComponent(errorFlores)
+                            .addComponent(estimacionText))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -95,11 +103,11 @@ public class VistaEstimarFlores extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(florTest)
-                    .addComponent(estimacionText))
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
+                .addComponent(estimacionText)
+                .addGap(7, 7, 7)
+                .addComponent(errorFlores)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(errorNumero))
@@ -116,17 +124,49 @@ public class VistaEstimarFlores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void estimacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estimacionActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_estimacionActionPerformed
+
+    private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
+        controlador.procesaEventoCantidad();
+    }//GEN-LAST:event_confirmarActionPerformed
+
+    private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
+       controlador.volver();
+    }//GEN-LAST:event_volverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton confirmar;
+    private javax.swing.JLabel errorFlores;
     private javax.swing.JLabel errorNumero;
     private javax.swing.JTextField estimacion;
     private javax.swing.JLabel estimacionText;
-    private javax.swing.JLabel florTest;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JButton volver;
     // End of variables declaration//GEN-END:variables
+
+    public void muestraEstim(int estim) {
+        estimacionText.setText(estimacionText.getText()+" " +estim);
+    }
+
+    public void errorNoHayFlor() {
+        errorFlores.setVisible(true);
+        confirmar.hide();
+        estimacion.hide();
+        estimacionText.hide();
+        jLabel4.hide();
+    }
+
+    public int getCantidad() {
+        try{
+            return Integer.parseInt(estimacion.getText());
+        }catch(NumberFormatException e){
+            return -1;
+        }
+    }
+
+    public void errorCantidad() {
+        errorNumero.show();
+    }
 }
