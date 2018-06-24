@@ -14,7 +14,7 @@ import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.Sesion;
  */
 public class VistaOpcionesOperario extends javax.swing.JFrame {
 
-    
+
     private final ControladorVistaOpcionesOperario controlador;
     /**
      * Creates new form VistaOpcionesDependiente
@@ -46,6 +46,12 @@ public class VistaOpcionesOperario extends javax.swing.JFrame {
         botonModificarEstadoLote.setMaximumSize(new java.awt.Dimension(200, 200));
         botonModificarEstadoLote.setMinimumSize(new java.awt.Dimension(200, 32));
         botonModificarEstadoLote.setPreferredSize(new java.awt.Dimension(200, 32));
+
+        botonModificarEstadoLote.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarEstadoLoteActionPerformed(evt);
+            }
+        });
 
         botonInformatProductosAuxiliaresNecesarios.setText("Informar Productos Auxiliares Necesarios");
         botonInformatProductosAuxiliaresNecesarios.setMaximumSize(new java.awt.Dimension(200, 50));
@@ -105,7 +111,7 @@ public class VistaOpcionesOperario extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -135,12 +141,16 @@ public class VistaOpcionesOperario extends javax.swing.JFrame {
             }
         });
     }
-    
+    private void botonModificarEstadoLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarEstadoLoteActionPerformed
+        controlador.procesaModificarLote();
+    }//GEN-LAST:event_botonModificarEstadoLoteActionPerformed
+
+
     public void rellenaCampos(){
         Sesion sesion = Sesion.getInstancia();
-        
+
         Empleado e = sesion.getEmpleado();
-        
+
         labelNombreUsuario.setText(e.getNombre());
     }
 

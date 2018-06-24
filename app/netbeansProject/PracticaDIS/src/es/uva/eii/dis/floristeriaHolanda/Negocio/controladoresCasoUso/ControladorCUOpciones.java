@@ -18,8 +18,18 @@ public class ControladorCUOpciones {
         
     }
     
+
+    public void modificarLote(){
+        GestorDeInterfazDeUsuario stateMachine = Main.getStateMachineLogin();
+        stateMachine.modificarLote();
+    }
     public void cerrarSesion(){
         GestorDeInterfazDeUsuario stateMachine = Main.getStateMachineLogin();
         stateMachine.cerrarSesion();
+    }
+
+    public void registrarVentaDirecta() {
+       GestorDeInterfazDeUsuario stateMachine = Main.getStateMachineLogin();
+       stateMachine.registrarVentaDirecta();
     }
 }

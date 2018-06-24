@@ -66,7 +66,16 @@ public class ConexionDB {
         
         return res;       
     }
-        
+    
+    public void update(String SQL_Update) {
+        try{
+            Statement update = conn.createStatement();
+            int execute = update.executeUpdate(SQL_Update);
+            System.out.println(execute);
+        }catch(SQLException e){
+            System.err.println("thats bad: "+e.getMessage());
+        }
+    }
     
     public PreparedStatement getPreparedStatement(String s){
         PreparedStatement ps = null;

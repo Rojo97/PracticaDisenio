@@ -20,6 +20,11 @@ public class ControladorVistaOpcionesOperario {
         controladorCU = new ControladorCUOpciones();
     }
     
+
+    public void procesaModificarLote(){
+        controladorCU.modificarLote();
+    }
+    
     public void procesaCerrarSesion(){
         controladorCU.cerrarSesion();
     }

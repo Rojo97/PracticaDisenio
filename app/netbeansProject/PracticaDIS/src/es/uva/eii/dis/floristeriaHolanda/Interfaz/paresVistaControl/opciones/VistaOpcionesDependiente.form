@@ -81,6 +81,9 @@
           <Dimension value="[200, 32]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botonVentaDirectaMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botonCerrarSesion">
       <Properties>

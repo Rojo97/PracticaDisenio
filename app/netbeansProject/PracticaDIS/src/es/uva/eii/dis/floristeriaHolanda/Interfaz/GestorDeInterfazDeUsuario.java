@@ -5,6 +5,7 @@
  */
 package es.uva.eii.dis.floristeriaHolanda.Interfaz;
 
+import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.RegistrarVentaDirecta.VistaRegistrarVentaDirecta;
 import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.login.VistaIdentificarse;
 import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.opciones.VistaOpcionesAdministrativo;
 import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.opciones.VistaOpcionesDependiente;
@@ -95,6 +96,14 @@ public class GestorDeInterfazDeUsuario {
         currentState.setVisible(true);
     }
     
+
+    public void modificarLote(){
+        currentState.dispose();
+        
+        currentState = new VistaModificarLote();
+        currentState.setVisible(true); 
+    }
+    
     public void cerrarSesion() {
                 
         currentState.dispose();
@@ -102,4 +111,34 @@ public class GestorDeInterfazDeUsuario {
         currentState = new VistaIdentificarse();
         currentState.setVisible(true);
     }
+
+    
+    
+    public void CancelaResgistrarVentaDirecta() {
+        empleadoIdentificado();
+        
+    }
+
+    public void registrarVentaDirecta() {
+        currentState.dispose();
+        
+        currentState = new VistaRegistrarVentaDirecta();
+        currentState.setVisible(true);
+    }
+
+    public void estimar(int lote, String planta) {
+        currentState.hide();
+        lastState = currentState;
+        
+        currentState = new VistaEstimarFlores(lote, planta);
+        currentState.setVisible(true);
+    }
+
+    public void volver() {
+        currentState.dispose();
+        currentState = lastState;
+        lastState = null;
+        currentState.setVisible(true);
+    }
+
 }

@@ -49,6 +49,11 @@ public class VistaOpcionesDependiente extends javax.swing.JFrame {
         botonVentaDirecta.setText("Registrar Venta Directa");
         botonVentaDirecta.setMaximumSize(new java.awt.Dimension(200, 32));
         botonVentaDirecta.setPreferredSize(new java.awt.Dimension(200, 32));
+        botonVentaDirecta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonVentaDirectaMouseClicked(evt);
+            }
+        });
 
         botonCerrarSesion.setText("Cerrar Sesion");
         botonCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -97,6 +102,11 @@ public class VistaOpcionesDependiente extends javax.swing.JFrame {
         controlador.procesaCerrarSesion();
     }//GEN-LAST:event_botonCerrarSesionActionPerformed
 
+
+    private void botonVentaDirectaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonVentaDirectaMouseClicked
+        controlador.procesaRegistrarVentaDirecta();
+    }//GEN-LAST:event_botonVentaDirectaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -104,7 +114,7 @@ public class VistaOpcionesDependiente extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -131,12 +141,12 @@ public class VistaOpcionesDependiente extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void rellenaCampos(){
         Sesion sesion = Sesion.getInstancia();
-        
+
         Empleado e = sesion.getEmpleado();
-        
+
         labelNombreUsuario.setText(e.getNombre());
     }
 
