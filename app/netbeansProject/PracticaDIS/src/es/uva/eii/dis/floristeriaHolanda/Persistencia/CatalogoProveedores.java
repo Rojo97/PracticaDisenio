@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.uva.eii.dis.floristeriaHolanda.ServiciosComunes;
+package es.uva.eii.dis.floristeriaHolanda.Persistencia;
 
 import es.uva.eii.dis.floristeriaHolanda.Negocio.modelos.PedidoAProveedor;
 import es.uva.eii.dis.floristeriaHolanda.Negocio.modelos.Proveedor;

@@ -2,7 +2,7 @@ package es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.consultarFa
 
 import es.uva.eii.dis.floristeriaHolanda.Negocio.modelos.PedidoAProveedor;
 import es.uva.eii.dis.floristeriaHolanda.Negocio.modelos.Proveedor;
-import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.CatalogoProveedores;
+import es.uva.eii.dis.floristeriaHolanda.Persistencia.CatalogoProveedores;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;

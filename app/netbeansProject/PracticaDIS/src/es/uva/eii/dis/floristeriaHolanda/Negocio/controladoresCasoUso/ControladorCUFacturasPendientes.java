@@ -6,7 +6,7 @@
 package es.uva.eii.dis.floristeriaHolanda.Negocio.controladoresCasoUso;
 
 import es.uva.eii.dis.floristeriaHolanda.Negocio.modelos.Proveedor;
-import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.CatalogoProveedores;
+import es.uva.eii.dis.floristeriaHolanda.Persistencia.CatalogoProveedores;
 import es.uva.eii.dis.floristeriaHolanda.Main.Main;
 import es.uva.eii.dis.floristeriaHolanda.Interfaz.GestorDeInterfazDeUsuario;
 import java.util.ArrayList;
