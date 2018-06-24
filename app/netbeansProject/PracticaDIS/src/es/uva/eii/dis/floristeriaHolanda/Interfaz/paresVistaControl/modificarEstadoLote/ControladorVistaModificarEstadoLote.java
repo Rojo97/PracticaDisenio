@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.uva.eii.dis.floristeriaHolanda.Interfaz;
+package es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.modificarEstadoLote;
 
 /**
  *
  * @author super
  */
-public class ControladorVistaRegistrarVentaDirecta {
+public class ControladorVistaModificarEstadoLote {
     
 }

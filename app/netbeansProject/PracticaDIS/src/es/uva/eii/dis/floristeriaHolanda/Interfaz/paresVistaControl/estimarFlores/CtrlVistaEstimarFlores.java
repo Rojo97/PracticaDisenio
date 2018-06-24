@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.uva.eii.dis.floristeriaHolanda.Interfaz;
+package es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.estimarFlores;
 
 import es.uva.eii.dis.floristeriaHolanda.Negocio.controladoresCasoUso.ControladorCUEstimarFlores;
 

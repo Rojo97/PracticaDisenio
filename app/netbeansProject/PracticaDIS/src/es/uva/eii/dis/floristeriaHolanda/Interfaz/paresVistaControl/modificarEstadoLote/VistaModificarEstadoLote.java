@@ -1,5 +1,5 @@
 
-package es.uva.eii.dis.floristeriaHolanda.Interfaz;
+package es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.modificarEstadoLote;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -50,7 +50,6 @@ public class VistaModificarEstadoLote extends javax.swing.JFrame {
             }
         });
 
-
         jLabel1.setText("Introducir nombre de la planta:");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lote 1", "Lote2" }));
@@ -71,7 +70,6 @@ public class VistaModificarEstadoLote extends javax.swing.JFrame {
 
         jLabel6.setText("* Errores detectados");
 
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,7 +77,6 @@ public class VistaModificarEstadoLote extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-
                     .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3)
                     .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -172,7 +169,6 @@ public class VistaModificarEstadoLote extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
