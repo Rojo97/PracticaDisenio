@@ -24,7 +24,7 @@ public class FachadaPersistencia {
     }
     
     public static String getProveedoresConFacturasEnIntervalo(Date fechaInicial, Date fechaFinal){
-        return "hola";
+        return ProveedorDB.getProveedoresConFacturasEnIntervalo(fechaInicial, fechaFinal);
     }
 
     public static String getProductoPorCodigo(String codigo) throws ProductoNotFoundException {

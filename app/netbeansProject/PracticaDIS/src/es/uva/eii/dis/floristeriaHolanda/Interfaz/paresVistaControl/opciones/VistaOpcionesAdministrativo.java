@@ -50,6 +50,11 @@ public class VistaOpcionesAdministrativo extends javax.swing.JFrame {
         botonFacturas.setText("Consultar Facturas Pendientes de Pago");
         botonFacturas.setMaximumSize(new java.awt.Dimension(200, 32));
         botonFacturas.setPreferredSize(new java.awt.Dimension(200, 32));
+        botonFacturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonFacturasActionPerformed(evt);
+            }
+        });
 
         botonCerrarSesion.setText("Cerrar Sesion");
         botonCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -97,6 +102,10 @@ public class VistaOpcionesAdministrativo extends javax.swing.JFrame {
     private void botonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarSesionActionPerformed
         controlador.procesaCerrarSesion();
     }//GEN-LAST:event_botonCerrarSesionActionPerformed
+
+    private void botonFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFacturasActionPerformed
+        controlador.procesaConsultarFacturasPendientes();
+    }//GEN-LAST:event_botonFacturasActionPerformed
 
     /**
      * @param args the command line arguments

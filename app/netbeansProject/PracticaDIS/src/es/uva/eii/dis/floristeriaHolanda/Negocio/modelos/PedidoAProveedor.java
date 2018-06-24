@@ -29,4 +29,16 @@ public class PedidoAProveedor {
     public void setFactura(Factura factura){
         this.factura = factura;
     }
+    
+    public int getNumeroPedido(){
+        return numeroPedido;
+    }
+    
+    public Date getFechaRealizacion(){
+        return fechaRealizacion;
+    }
+    
+    public Factura getFactura(){
+        return factura;
+    }
 }

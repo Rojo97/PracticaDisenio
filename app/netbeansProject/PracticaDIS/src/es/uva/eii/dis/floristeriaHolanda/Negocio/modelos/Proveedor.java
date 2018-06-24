@@ -42,60 +42,63 @@ public class Proveedor {
         String JSONArrayString = FachadaPersistencia.getProveedoresConFacturasEnIntervalo(fechaInicial, fechaFinal);
         
         ArrayList<Proveedor> listaProveedores = new ArrayList<>();
-        JSONArray proveedores = new JSONArray(JSONArrayString);
         
-        Iterator it = proveedores.iterator();
+        if(JSONArrayString!=null){
+            JSONArray proveedores = new JSONArray(JSONArrayString);
         
-        while (it.hasNext()) {            
-            JSONObject jsonProveedor = (JSONObject)it.next();
+            Iterator it = proveedores.iterator();
+        
+            while (it.hasNext()) {            
+                JSONObject jsonProveedor = (JSONObject)it.next();
             
-            String cif = jsonProveedor.getString("CIF");
-            String nombre = jsonProveedor.getString("NOMBRE");
-            String telefono = jsonProveedor.getString("TELEFONO");
-            String email = jsonProveedor.getString("EMAIL");
+                String cif = jsonProveedor.getString("CIF");
+                String nombre = jsonProveedor.getString("NOMBRE");
+                String telefono = jsonProveedor.getString("TELEFONO");
+                String email = jsonProveedor.getString("EMAIL");
             
-            Proveedor p = new Proveedor(cif, nombre, telefono, email);
+                Proveedor p = new Proveedor(cif, nombre, telefono, email);
             
-            JSONArray pedidos = jsonProveedor.getJSONArray("pedidos");
+                JSONArray pedidos = jsonProveedor.getJSONArray("pedidos");
             
-            Iterator itP = pedidos.iterator();
+                Iterator itP = pedidos.iterator();
             
-            ArrayList<PedidoAProveedor> listaPedidos = new ArrayList<>();
+                ArrayList<PedidoAProveedor> listaPedidos = new ArrayList<>();
             
-            while (itP.hasNext()) {
-                JSONObject jsonPedido = (JSONObject)itP.next();
+                while (itP.hasNext()) {
+                    JSONObject jsonPedido = (JSONObject)itP.next();
                 
-                int numeroDePedido = jsonPedido.getInt("NUMERODEPEDIDO");
-                String fechaDeRealizacionDePedido = jsonPedido.getString("FECHADEREALIZACION");
-                String fechaDeEmisionFactura = jsonPedido.getString("FECHAEMISIONFACTURA");
-                float importe = jsonPedido.getFloat("IMPORTEFACTURA");
-                String cuentaBancaria = jsonPedido.getString("CUENTABANCARIAFACTURA");
+                    int numeroDePedido = jsonPedido.getInt("NUMERODEPEDIDO");
+                    String fechaDeRealizacionDePedido = jsonPedido.getString("FECHADEREALIZACION");
+                    String fechaDeEmisionFactura = jsonPedido.getString("FECHAEMISIONFACTURA");
+                    float importe = jsonPedido.getFloat("IMPORTEFACTURA");
+                    String cuentaBancaria = jsonPedido.getString("CUENTABANCARIAFACTURA");
                 
-                Date fechaRealizacion = null;
-                try{
-                   fechaRealizacion = formato.parse(fechaDeRealizacionDePedido); 
-                }catch(ParseException e){
-                    System.err.println(e.getStackTrace());
-                }
+                    Date fechaRealizacion = null;
+                    try{
+                        fechaRealizacion = formato.parse(fechaDeRealizacionDePedido); 
+                    }catch(ParseException e){
+                        System.err.println(e.getStackTrace());
+                    }
                  
-                PedidoAProveedor pp = new PedidoAProveedor(numeroDePedido, fechaRealizacion);
+                    PedidoAProveedor pp = new PedidoAProveedor(numeroDePedido, fechaRealizacion);
                 
-                Date fechaEmision = null;
-                try{
-                   fechaEmision = formato.parse(fechaDeRealizacionDePedido); 
-                }catch(ParseException e){
-                    System.err.println(e.getStackTrace());
+                    Date fechaEmision = null;
+                    try{
+                        fechaEmision = formato.parse(fechaDeRealizacionDePedido); 
+                    }catch(ParseException e){
+                        System.err.println(e.getStackTrace());
+                    }
+                
+                    Factura f = new Factura(fechaEmision, importe, cuentaBancaria);
+                
+                    pp.setFactura(f);
+                
+                    listaPedidos.add(pp);
                 }
-                
-                Factura f = new Factura(fechaEmision, importe, cuentaBancaria);
-                
-                pp.setFactura(f);
-                
-                listaPedidos.add(pp);
-            }
-            p.addPedidosProveedor(listaPedidos);
+                p.addPedidosProveedor(listaPedidos);
             
-            listaProveedores.add(p);
+                listaProveedores.add(p);
+            }
         }
         
         return listaProveedores;
@@ -103,5 +106,30 @@ public class Proveedor {
     
     public void addPedidosProveedor(ArrayList<PedidoAProveedor> listaPedidos){
         this.listaPedidos.addAll(listaPedidos);
+    }
+    
+    public String getCif(){
+        return cif;
+    }
+    
+    public ArrayList<PedidoAProveedor> getListaPedidosPendientes(){
+        return (ArrayList<PedidoAProveedor>)listaPedidos.clone();
+    }
+    
+    public String getNombre(){
+        return nombre;
+    }
+    
+    public PedidoAProveedor getPedidoPorNumero(int n){
+        Iterator it = listaPedidos.iterator();
+        
+        while (it.hasNext()) {
+            PedidoAProveedor pp = (PedidoAProveedor)it.next();
+            if(pp.getNumeroPedido()==n){
+                return pp;
+            }
+        }
+        
+        return null;
     }
 }

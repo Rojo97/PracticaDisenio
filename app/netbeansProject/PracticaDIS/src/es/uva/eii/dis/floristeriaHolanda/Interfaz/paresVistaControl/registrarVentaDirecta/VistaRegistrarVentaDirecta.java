@@ -1,4 +1,4 @@
-package es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.RegistrarVentaDirecta;
+package es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.registrarVentaDirecta;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

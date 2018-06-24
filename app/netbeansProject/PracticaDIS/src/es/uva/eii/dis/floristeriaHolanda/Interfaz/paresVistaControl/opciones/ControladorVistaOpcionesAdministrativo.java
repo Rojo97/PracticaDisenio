@@ -24,4 +24,8 @@ public class ControladorVistaOpcionesAdministrativo {
     public void procesaCerrarSesion(){
         controladorCU.cerrarSesion();
     }
+    
+    public void procesaConsultarFacturasPendientes(){
+        controladorCU.consultarFacturasPendientes();
+    }
 }

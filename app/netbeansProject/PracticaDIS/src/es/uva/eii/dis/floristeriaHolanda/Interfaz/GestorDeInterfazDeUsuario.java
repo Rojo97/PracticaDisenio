@@ -5,9 +5,10 @@
  */
 package es.uva.eii.dis.floristeriaHolanda.Interfaz;
 
+import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.consultarFacturas.VistaConsultarFacturasPendientes;
 import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.estimarFlores.VistaEstimarFlores;
 import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.modificarLote.VistaModificarLote;
-import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.RegistrarVentaDirecta.VistaRegistrarVentaDirecta;
+import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.registrarVentaDirecta.VistaRegistrarVentaDirecta;
 import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.login.VistaIdentificarse;
 import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.opciones.VistaOpcionesAdministrativo;
 import es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.opciones.VistaOpcionesDependiente;
@@ -143,4 +144,11 @@ public class GestorDeInterfazDeUsuario {
         currentState.setVisible(true);
     }
 
+    public void consultarFacturasPendientes() {
+        lastState = currentState;
+        currentState.dispose();
+        
+        currentState = new VistaConsultarFacturasPendientes();
+        currentState.setVisible(true);
+    }
 }

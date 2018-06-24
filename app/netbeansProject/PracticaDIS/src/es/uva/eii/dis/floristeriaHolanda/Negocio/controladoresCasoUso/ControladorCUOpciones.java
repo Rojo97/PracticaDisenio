@@ -32,4 +32,9 @@ public class ControladorCUOpciones {
        GestorDeInterfazDeUsuario stateMachine = Main.getStateMachineLogin();
        stateMachine.registrarVentaDirecta();
     }
+    
+    public void consultarFacturasPendientes(){
+        GestorDeInterfazDeUsuario stateMachine = Main.getStateMachineLogin();
+       stateMachine.consultarFacturasPendientes();
+    }
 }

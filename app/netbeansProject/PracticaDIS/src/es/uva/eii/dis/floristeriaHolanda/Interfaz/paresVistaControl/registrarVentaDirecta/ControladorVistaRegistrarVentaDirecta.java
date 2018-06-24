@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.RegistrarVentaDirecta;
+package es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.registrarVentaDirecta;
 
 import es.uva.eii.dis.floristeriaHolanda.Interfaz.GestorDeInterfazDeUsuario;
 import es.uva.eii.dis.floristeriaHolanda.Main.Main;

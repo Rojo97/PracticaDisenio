@@ -22,4 +22,12 @@ public class Factura {
         this.cuentaBancaria = cuentaBancaria;
     }
     
+    public float getImporte(){
+        return importe;
+    }
+    
+    public Date getFechaEmision(){
+        return fechaEmision;
+    }
+    
 }

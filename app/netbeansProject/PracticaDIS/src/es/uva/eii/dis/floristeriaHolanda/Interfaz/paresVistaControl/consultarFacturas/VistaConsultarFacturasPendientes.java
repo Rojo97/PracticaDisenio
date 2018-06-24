@@ -1,5 +1,13 @@
 package es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.consultarFacturas;
 
+import es.uva.eii.dis.floristeriaHolanda.Negocio.modelos.PedidoAProveedor;
+import es.uva.eii.dis.floristeriaHolanda.Negocio.modelos.Proveedor;
+import es.uva.eii.dis.floristeriaHolanda.ServiciosComunes.CatalogoProveedores;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Date;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,12 +20,21 @@ package es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.consultarFa
 public class VistaConsultarFacturasPendientes extends javax.swing.JFrame {
 
     private es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.consultarFacturas.ControladorVistaConsultarFacturasPendientes controlador;
+    
+    private static SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
     /**
      * Creates new form VistaConsultarFacturasPendientes
      */
     public VistaConsultarFacturasPendientes() {
         initComponents();
+        panelProveedor.setVisible(false);
+        esconderInforme();
         controlador = new es.uva.eii.dis.floristeriaHolanda.Interfaz.paresVistaControl.consultarFacturas.ControladorVistaConsultarFacturasPendientes(this);
+    }
+    
+    public void esconderInforme(){
+        panelInforme.setVisible(false);
+        panelDetallePedido.setVisible(false);
     }
     
     public String getFechaInicial(){
@@ -28,20 +45,128 @@ public class VistaConsultarFacturasPendientes extends javax.swing.JFrame {
         return textFechaFinal.getText();
     }
     
+    public String getProveedor(){
+        return textoProveedor.getText();
+    }
+    
+    public String getPedidoSeleccionado(){
+        return comboBoxPedidos.getSelectedItem().toString().split("-->")[1];
+    }
+    
+    public boolean anioActualIsSelected(){
+        return checkBoxAnioActual.isSelected();
+    }
+    
+    public void deselectAnioActual(){
+        checkBoxAnioActual.setSelected(false);
+    }
+    
+    public void deselectTodasFechas(){
+        checkBoxGeneral.setSelected(false);
+    }
+    
+    public boolean todasFechasIsSelected(){
+        return checkBoxGeneral.isSelected();
+    }
+    
+    public void esconderProveedores(){
+        panelProveedor.setVisible(false);
+        esconderInforme();
+    }
+    
     public void mostrarErrorFechaInicial(){
-        
+        textoErrorFechas.setText("La fecha inicial no es valida");
     }
     
     public void mostrarErrorFechaFinal(){
-        
+        textoErrorFechas.setText("La fecha final no es valida");
     }
     
     public void mostrarErrorFechasIncompatibles(){
-        
+        textoErrorFechas.setText("La fecha inicial debe ser anterior a la final");
     }
     
     public void mostrarNingunPedidoEnIntervalo(){
+        textoErrorFechas.setText("No hay ningun pedido en ese intervalo");
+    }
+    
+    public void busquedaCorrecta(){
+        textoErrorFechas.setText("");
+        panelProveedor.setVisible(true);
+    }
+    
+    public void mostrarErrorProveedor(){
+        textoErrorProveedor.setText("El nombre no coincide con ninguún proveedor");
+    }
+    
+    
+    
+    public void mostrarFacturasProveedorSeleccionado(){
+        panelInforme.setVisible(true);
+        CatalogoProveedores catalogo = CatalogoProveedores.getInstancia();
         
+        Proveedor p = catalogo.getProveedorSeleccionado();
+        
+        labelNombreProveedorInforme.setText(p.getNombre());
+        
+        Date fechaIni = catalogo.getFechaInicialCatalogo();
+        Date fechaFin = catalogo.getFechaFinalCatalogo();
+        labelFechaInicioInforme.setText(formato.format(fechaIni));
+        labelFechaFinalInforme.setText(formato.format(fechaFin));
+        
+        
+        ArrayList<PedidoAProveedor> pedidos = p.getListaPedidosPendientes();
+        
+        Iterator it = pedidos.iterator();
+        
+        comboBoxPedidos.removeAllItems();
+        
+        while (it.hasNext()) {
+            PedidoAProveedor pp = (PedidoAProveedor)it.next();
+            String pedido = p.getNombre() + " - " + p.getCif() + " --> " + pp.getNumeroPedido();
+            comboBoxPedidos.addItem(pedido);
+        }
+    }
+    
+    public void desactivaIntervalo(){
+        System.err.println("Desactiva");
+        textFechaInicial.setEditable(false);
+        textFechaFinal.setEditable(false);
+        botonBuscarProveedor.setEnabled(false);
+    }
+    
+    public void activaIntervalo(){
+        textFechaInicial.setEditable(true);
+        textFechaFinal.setEditable(true);
+        botonBuscarProveedor.setEnabled(true);
+    }
+    
+    public void muestraInforme(){
+        panelDetallePedido.setVisible(true);
+        CatalogoProveedores catalogo = CatalogoProveedores.getInstancia();
+        
+        Proveedor p = catalogo.getProveedorSeleccionado();
+        
+        ArrayList<PedidoAProveedor> listaPedidos = p.getListaPedidosPendientes();
+        
+        Iterator it = listaPedidos.iterator();
+        
+        int numElegido = Integer.parseInt(comboBoxPedidos.getSelectedItem().toString().split("--> ")[1]);
+        
+        PedidoAProveedor pp = new PedidoAProveedor(1, null);
+        while (it.hasNext()) {
+            pp = (PedidoAProveedor)it.next();
+            if(pp.getNumeroPedido()==numElegido){
+                break;
+            }
+        }
+        labelNumeroPedido.setText(String.valueOf(numElegido));
+        labelNombreProveedor.setText(p.getNombre());
+        String fechaFactura = formato.format(pp.getFactura().getFechaEmision());
+        labelFechaEmisionFactura.setText(fechaFactura);
+        String fechaInforme = formato.format(pp.getFechaRealizacion());
+        labelFechaRealizacionPedido.setText(fechaInforme);
+        labelImporteFactura.setText(String.valueOf(pp.getFactura().getImporte()));
     }
 
     /**
@@ -66,32 +191,35 @@ public class VistaConsultarFacturasPendientes extends javax.swing.JFrame {
         labelAsteriscoFechaIni = new javax.swing.JLabel();
         labelAsteriscoFechaFin = new javax.swing.JLabel();
         textoErrorFechas = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jTextField3 = new javax.swing.JTextField();
+        panelProveedor = new javax.swing.JPanel();
+        textoProveedor = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        botonBuscarFacturas = new javax.swing.JButton();
         jCheckBox4 = new javax.swing.JCheckBox();
         jLabel10 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
+        textoErrorProveedor = new javax.swing.JLabel();
+        panelInforme = new javax.swing.JPanel();
+        labelNombreProveedorInforme = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        labelErrorFacturas = new javax.swing.JLabel();
+        labelFechaInicioInforme = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        panelDetallePedido = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        labelNumeroPedido = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        labelNombreProveedor = new javax.swing.JLabel();
+        labelImporteFactura = new javax.swing.JLabel();
+        labelFechaRealizacionPedido = new javax.swing.JLabel();
+        labelFechaEmisionFactura = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        labelFechaFinalInforme = new javax.swing.JLabel();
+        comboBoxPedidos = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        botonVerInforme = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,14 +232,9 @@ public class VistaConsultarFacturasPendientes extends javax.swing.JFrame {
             }
         });
 
-        textFechaInicial.setText("Fecha Inicial");
-        textFechaInicial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFechaInicialActionPerformed(evt);
-            }
-        });
+        textFechaInicial.setText("aaaa-mm-dd");
 
-        textFechaFinal.setText("Fecha Final");
+        textFechaFinal.setText("aaaa-mm-dd");
 
         labelFechaIni.setText("Introducir fecha inicial");
 
@@ -125,8 +248,18 @@ public class VistaConsultarFacturasPendientes extends javax.swing.JFrame {
         });
 
         checkBoxAnioActual.setText("Mostrar facturas pendientes del año actual");
+        checkBoxAnioActual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxAnioActualActionPerformed(evt);
+            }
+        });
 
         checkBoxGeneral.setText("Mostrar todas las facturas pendientes");
+        checkBoxGeneral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxGeneralActionPerformed(evt);
+            }
+        });
 
         labelGuion.setText("-");
 
@@ -199,18 +332,18 @@ public class VistaConsultarFacturasPendientes extends javax.swing.JFrame {
                     .addComponent(botonBuscarProveedor)))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 255)));
+        panelProveedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 255)));
 
-        jTextField3.setText("Nombre proveedor");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
+        textoProveedor.setText("Cif proveedor");
 
         jLabel4.setText("Introducir nombre del proveedor");
 
-        jButton4.setText("Buscar facturas");
+        botonBuscarFacturas.setText("Buscar facturas");
+        botonBuscarFacturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBuscarFacturasActionPerformed(evt);
+            }
+        });
 
         jCheckBox4.setText("Mostrar todos los proveedores");
         jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
@@ -221,195 +354,207 @@ public class VistaConsultarFacturasPendientes extends javax.swing.JFrame {
 
         jLabel10.setText("*");
 
-        jLabel12.setText("* Campos no válidos");
-
-        jLabel8.setText("* No se ha encontrado el proveedor");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox4)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4))
-                    .addComponent(jTextField3))
-                .addGap(7, 7, 7))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelProveedorLayout = new javax.swing.GroupLayout(panelProveedor);
+        panelProveedor.setLayout(panelProveedorLayout);
+        panelProveedorLayout.setHorizontalGroup(
+            panelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProveedorLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(jButton4)))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addContainerGap())
+                .addComponent(botonBuscarFacturas))
+            .addGroup(panelProveedorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelProveedorLayout.createSequentialGroup()
+                        .addComponent(textoErrorProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(panelProveedorLayout.createSequentialGroup()
+                        .addGroup(panelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelProveedorLayout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4))
+                            .addComponent(textoProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE))
+                        .addGap(7, 7, 7))
+                    .addGroup(panelProveedorLayout.createSequentialGroup()
+                        .addComponent(jCheckBox4)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        panelProveedorLayout.setVerticalGroup(
+            panelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProveedorLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addComponent(textoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(textoErrorProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jCheckBox4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addComponent(botonBuscarFacturas))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 204, 0)));
+        panelInforme.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 204, 0)));
 
-        jLabel14.setText("Nombre proveedor/ Todos los proveedores");
+        labelNombreProveedorInforme.setText("Nombre proveedor/ Todos los proveedores");
 
         jLabel13.setText("Proveedor:");
 
-        jLabel15.setText("* No se han encontrado facturas pendientes *");
+        labelErrorFacturas.setText("* No se han encontrado facturas pendientes *");
 
-        jLabel11.setText("Fecha inicio - fecha fin (dd/mm/yy)");
+        labelFechaInicioInforme.setText("Fecha inicio");
 
         jLabel9.setText("Fechas:");
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 255)));
+        panelDetallePedido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 255)));
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel3.setText("Numero de pedido:");
 
-        jLabel16.setText("Proveedor:");
+        labelNumeroPedido.setText("Numero");
 
-        jLabel17.setText("Nombre Proveedor");
+        jLabel6.setText("Nombre proveedor:");
 
-        jLabel18.setText("Número pedido:");
+        jLabel7.setText("Importe factura:");
 
-        jLabel19.setText("Numero");
+        jLabel8.setText("Fecha realizacion pedido:");
 
-        jLabel20.setText("Importe factura:");
+        jLabel11.setText("Fecha emision factura:");
 
-        jLabel21.setText("Importe");
+        labelNombreProveedor.setText("Nombre");
 
-        jLabel22.setText("Fecha realización del pedido:");
+        labelImporteFactura.setText("Importe");
 
-        jLabel23.setText("Fecha(dd/mm/yyyy)");
+        labelFechaRealizacionPedido.setText("Fecha");
 
-        jLabel24.setText("Fecha emisión factura:");
+        labelFechaEmisionFactura.setText("Fecha");
 
-        jLabel25.setText("Fecha(dd/mm/yyyy)");
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
+        javax.swing.GroupLayout panelDetallePedidoLayout = new javax.swing.GroupLayout(panelDetallePedido);
+        panelDetallePedido.setLayout(panelDetallePedidoLayout);
+        panelDetallePedidoLayout.setHorizontalGroup(
+            panelDetallePedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDetallePedidoLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(panelDetallePedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelDetallePedidoLayout.createSequentialGroup()
+                        .addGroup(panelDetallePedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addGap(58, 58, 58)
+                        .addGroup(panelDetallePedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(labelNumeroPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                            .addComponent(labelNombreProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelImporteFactura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(panelDetallePedidoLayout.createSequentialGroup()
+                        .addGroup(panelDetallePedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel17))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel19))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel21))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel22)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel23))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel25)))
-                .addContainerGap(88, Short.MAX_VALUE))
+                        .addGroup(panelDetallePedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelFechaRealizacionPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelFechaEmisionFactura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel17))
+        panelDetallePedidoLayout.setVerticalGroup(
+            panelDetallePedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDetallePedidoLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(panelDetallePedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(labelNumeroPedido))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel19))
+                .addGroup(panelDetallePedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(labelNombreProveedor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(jLabel21))
+                .addGroup(panelDetallePedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(labelImporteFactura))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22)
-                    .addComponent(jLabel23))
+                .addGroup(panelDetallePedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(labelFechaRealizacionPedido))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(jLabel25))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelDetallePedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(labelFechaEmisionFactura))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        jLabel1.setText("-");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+        labelFechaFinalInforme.setText("FechaFinal");
+
+        comboBoxPedidos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel2.setText("Pedido");
+
+        botonVerInforme.setText("Ver informe");
+        botonVerInforme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVerInformeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelInformeLayout = new javax.swing.GroupLayout(panelInforme);
+        panelInforme.setLayout(panelInformeLayout);
+        panelInformeLayout.setHorizontalGroup(
+            panelInformeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInformeLayout.createSequentialGroup()
+                .addGroup(panelInformeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelInformeLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(panelInformeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelInformeLayout.createSequentialGroup()
                                 .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel11))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(labelFechaInicioInforme)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(labelFechaFinalInforme, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelInformeLayout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel14))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(labelNombreProveedorInforme))))
+                    .addComponent(panelDetallePedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelInformeLayout.createSequentialGroup()
                         .addGap(33, 33, 33)
-                        .addComponent(jLabel15))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(labelErrorFacturas))
+                    .addGroup(panelInformeLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addGroup(panelInformeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonVerInforme)
+                            .addComponent(comboBoxPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        panelInformeLayout.setVerticalGroup(
+            panelInformeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInformeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelInformeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel11))
+                    .addComponent(labelFechaInicioInforme)
+                    .addComponent(jLabel1)
+                    .addComponent(labelFechaFinalInforme))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelInformeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jLabel14))
+                    .addComponent(labelNombreProveedorInforme))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(labelErrorFacturas)
+                .addGap(18, 18, 18)
+                .addGroup(panelInformeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboBoxPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addComponent(botonVerInforme)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelDetallePedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -419,34 +564,25 @@ public class VistaConsultarFacturasPendientes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelInforme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(panelInforme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
-        // TODO add your handling code here:
+        controlador.procesaCancelarOperacion();
     }//GEN-LAST:event_botonCancelarActionPerformed
-
-    private void textFechaInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFechaInicialActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFechaInicialActionPerformed
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
         // TODO add your handling code here:
@@ -455,6 +591,22 @@ public class VistaConsultarFacturasPendientes extends javax.swing.JFrame {
     private void botonBuscarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarProveedorActionPerformed
         controlador.procesaEventoRangoFechas();
     }//GEN-LAST:event_botonBuscarProveedorActionPerformed
+
+    private void checkBoxAnioActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAnioActualActionPerformed
+        controlador.procesaEventoAñoActual();
+    }//GEN-LAST:event_checkBoxAnioActualActionPerformed
+
+    private void checkBoxGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxGeneralActionPerformed
+        controlador.procesaEventoTodasLasFechas();
+    }//GEN-LAST:event_checkBoxGeneralActionPerformed
+
+    private void botonBuscarFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarFacturasActionPerformed
+        controlador.procesaEventoProveedorIntroducido();
+    }//GEN-LAST:event_botonBuscarFacturasActionPerformed
+
+    private void botonVerInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerInformeActionPerformed
+        controlador.procesaPedidoElegido();
+    }//GEN-LAST:event_botonVerInformeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -492,44 +644,47 @@ public class VistaConsultarFacturasPendientes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonBuscarFacturas;
     private javax.swing.JButton botonBuscarProveedor;
     private javax.swing.JButton botonCancelar;
+    private javax.swing.JButton botonVerInforme;
     private javax.swing.JCheckBox checkBoxAnioActual;
     private javax.swing.JCheckBox checkBoxGeneral;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox<String> comboBoxPedidos;
     private javax.swing.JCheckBox jCheckBox4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel labelAsteriscoFechaFin;
     private javax.swing.JLabel labelAsteriscoFechaIni;
+    private javax.swing.JLabel labelErrorFacturas;
+    private javax.swing.JLabel labelFechaEmisionFactura;
     private javax.swing.JLabel labelFechaFin;
+    private javax.swing.JLabel labelFechaFinalInforme;
     private javax.swing.JLabel labelFechaIni;
+    private javax.swing.JLabel labelFechaInicioInforme;
+    private javax.swing.JLabel labelFechaRealizacionPedido;
     private javax.swing.JLabel labelGuion;
+    private javax.swing.JLabel labelImporteFactura;
+    private javax.swing.JLabel labelNombreProveedor;
+    private javax.swing.JLabel labelNombreProveedorInforme;
+    private javax.swing.JLabel labelNumeroPedido;
+    private javax.swing.JPanel panelDetallePedido;
+    private javax.swing.JPanel panelInforme;
+    private javax.swing.JPanel panelProveedor;
     private javax.swing.JTextField textFechaFinal;
     private javax.swing.JTextField textFechaInicial;
     private javax.swing.JLabel textoErrorFechas;
+    private javax.swing.JLabel textoErrorProveedor;
+    private javax.swing.JTextField textoProveedor;
     // End of variables declaration//GEN-END:variables
 }
